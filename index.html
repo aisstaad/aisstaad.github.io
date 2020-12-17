@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Movistar+</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <style>
+        .dateItem {
+            padding: 5px;
+            color: #999;
+            margin: 0px;
+            line-height: 16px;
+            text-align: center;
+        }
+
+        .navbar {
+            z-index: 1;
+            position: fixed;
+            display: block;
+            top: 0;
+            width: 100%;
+            overflow: hidden;
+            background-color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .navbar a {
+            width: 150px;
+            height: 50px;
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: black;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        .container {
+            width: 80%;
+            margin-top: 250px;
+            margin-bottom: 0;
+            text-align: center;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto
+        }
+
+        #poster {
+            width: 100px;
+            border-radius: 5px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px
+        }
+
+        #logo {
+            width: 100%;
+        }
+
+        .col-sm {
+            position: relative;
+            padding: 15px;
+            width: 100%;
+            min-height: 1px;
+        }
+
+        @media (min-width: 576px) {
+            .col-sm {
+                -ms-flex-preferred-size: 0;
+                flex-basis: 0;
+                -ms-flex-positive: 1;
+                flex-grow: 1;
+                max-width: 100%
+            }
+        }
+
+        #title {
+            color: white;
+            border-color: black;
+            padding: 5px;
+        }
+
+        .right-header {
+            margin-top: 5px;
+            margin-right: 10px;
+            float: right;
+            margin-top: 5px;
+            margin-bottom: 0px;
+        }
+
+        #search {
+            height: 80%;
+            padding: 10px 0 0 0;
+        }
+
+        .form-wrapper #search {
+            width: 80%;
+            font-family: 'Arial', 'trebuchet MS', 'Tahoma';
+            border: 0;
+            background: transparent;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .portada_buscar span img {
+            margin: 10px;
+            float: right;
+        }
+
+        .portada_buscar {
+            height: 40px;
+            width: 100%;
+            background: #222;
+            padding-left: 10px;
+            border: 1px solid #666;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .tooltip {
+            z-index: 1070;
+            display: block;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            text-decoration: none;
+            text-shadow: none;
+            text-transform: none;
+            letter-spacing: normal;
+            word-break: normal;
+            word-spacing: normal;
+            white-space: normal;
+            line-break: auto;
+            font-size: .875rem;
+            word-wrap: break-word;
+        }
+
+        .tiptext {
+            visibility: hidden;
+            width: 100%;
+            background-color: rgb(80, 77, 77);
+            color: white;
+            text-align: center;
+            border-radius: 3px;
+            padding: 5px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip .tiptext::after {
+            position: relative;
+            border-width: 5px;
+            border-style: solid;
+        }
+
+        .tooltip:hover .tiptext {
+            visibility: visible;
+        }
+    </style>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <a href="index.html">
+            <img id="logo" alt="Microsoft" src="http://ver.movistarplus.es/img/logo-yomvi-cabecera.png">
+        </a>
+        <div class="right-header">
+            <div class="form-wrapper" id="search-busqueda-form" method="get" action="/busqueda/">
+                <div class="portada_buscar">
+                    <span><img alt="" src="http://ver.movistarplus.es/img/LUPA.png" onclick="search()"></span>
+                    <input type="text" placeholder="Buscar..." id="search" name="texto">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</head>
+
+<body>
+
+    <style>
+        .options {
+            color: white;
+            /* margin-top: 50px; */
+            margin-left: 10%;
+            margin-right: 10%;
+            position: fixed;
+            /* display: block; */
+            /* top: 50px; */
+            width: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .box {
+            padding: 15px;
+        }
+
+        .opts {
+            margin: 0 1%;
+            /* width: 280px; */
+            display: table-row;
+            position: static;
+        }
+
+        .lines {
+            padding: 0 5px;
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <a href="cine.html">
+                    <div>
+                        <img id="poster"
+                            src="https://www.movistarplus.es/recorte/e/original/891a21194ca174cbe5ea39ff79d2c776"
+                            onmouseover="" style="cursor: pointer;">
+                        <br>
+                        <div id="title">Cine</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm">
+                <a href="u7d.html">
+                    <div><img id="poster" src="http://ver.movistarplus.es/img/play_seguimiento.fw.png" onmouseover=""
+                            style="cursor: pointer;">
+                        <br>
+                        <div id="title">U7D</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm">
+                <a href="series.html">
+                    <div><img id="poster"
+                            src="https://www.movistarplus.es/recorte/e/original/af2d58875788241443236950a576ae53"
+                            onmouseover="" style="cursor: pointer;">
+                        <br>
+                        <div id="title">Series</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm">
+                <a href="directo.html">
+                    <div><img id="poster"
+                            src="https://www.movistarplus.es/recorte/e/original/b7aa3f13bbc2137b2f10b5a2fc811b7e"
+                            onmouseover="" style="cursor: pointer;">
+                        <br>
+                        <div id="title">Directo</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var items, section = document.getElementsByClassName('row'), v, str, items;
+
+        // mov1 4556, mov2 4561, mov3 4562 Campe1 4564, carte 4565, mov3 4566, 4568, 4569 4570 4572 4574 4578 4581 4585 4768 4769
+        // 4733 -> 4842 
+        // Resistencia
+        // https://b39225-p10-h54-aelx8pov.1.cdn.telefonica.com/_39225/prod/ltcuhls/960151443_1809304/05-960151443.m3u8
+        // https://b39225-p10-ha8-aelh8pov.1.cdn.telefonica.com/_39225/prod/ltcuhls/919402559_1809303/05-919402559.m3u8
+        // Late Motiv
+        // https://b39225-p10-h41-aemh8pov.1.cdn.telefonica.com/_39225/prod/ltcuhls/1619192629_1809211/05-1619192629.m3u8
+        // https://b39236.1.cdn.telefonica.com/39236/prod/ltcumss/1128909874/1128909874.ism/Manifest?tcdn-bitrate-filter=mplusvod
+        // https://b39236.1.cdn.telefonica.com/39225/prod/ltcumss/1128909874/1128909874.ism/Manifest?tcdn-bitrate-filter=mplusvod
+        // https://b38543.1.cdn.telefonica.com/38543/prod/mss/cplus-1796714-md_cplus-1796714-pry_dbvsexwtvhl2znr/index.ism/Manifest?tcdn-bitrate-filter=mplusvod
+
+        var CodChnnl = ["TVE", "LA2", "A3", "C4", "T5", "SEXTA", "MV3", "VAMOSD", "CPSER", "MV2", "FOXGE", "AXN", "TNT", "PCM", "CL13",
+            "COSMO", "AMC", "FOXCR", "SET", "SCI-FI", "MTV", "FDFIC", "NEOX", "ATRESS", "ENERGY", "MV1", "CPXTRA", "DISNEY", "CPACCI", "CPCOME",
+            "CPCOLE", "DCESP", "TCM", "HOLLYW", "DARK", "PARCH", "MLIGA", "CHAPIO", "CPDEP", "ARTHUR", "MVF1", "UBEAT", "GOLF+", "ESP", "ESP2",
+            "GOL", "TDEP", "CAZPES", "CFERIA", "NATGEO", "NATGW", "HIST", "DCR", "ODISEA", "VJR", "CYM", "CACOC", "DECASA", "DIVINI", "NOVA",
+            "MEGA", "BEMAD", "BABY", "PLAYDC", "PANDA", "NICKJR", "NICK", "DCHXD", "DCH", "BOING", "CLANTV", "VH1", "MEZZO", "MEZZLI", "CLASSD",
+            "24H", "INTECO", "ANTV", "TVG", "EXTREM", "TVC", "ETB", "ARAGON"];
+
+        var NumChnnl = ["4521", "4522", "4523", "4524", "4525", "4526", "4497", "4767", "4498", "4527", "4528", "4529", "4530", "4531", "4532",
+            "4533", "4520", "4534", "4535", "4536", "4499", "4537", "4538", "4539", "4540", "4501", "4541", "4600", "4542", "4573",
+            "4576", "4502", "4603", "4780", "4583", "4586", "4882", "4594", "4592", "4585", "4608", "4886", "4584", "4605", "4580",
+            "4577", "4504", "4606", "4505", "4604", "4610", "4543", "4545", "4547", "4549", "4552", "4506", "4602", "4507", "4601",
+            "4558", "4560", "4508", "4509", "4510", "4511", "4512", "4513", "4599", "4563", "4611", "4567", "4571", "4891", "4612",
+            "4544", "4893", "4764", "4548", "4614", "4555", "4557", "4615", "4903"];
+
+        /* var URL = 'https://perso.dof6.com/movistarplus/webplayer/users/contents/search?accountnumber=08100004377424-TEF&term=blindspot'
+        d = new Date();
+        d.setTime(d.getTime() + (1 * 12 * 60 * 60 * 1000));
+        var iat = d.getTime() / 1000
+        var exp = iat + (10 * 24 * 60 * 60 * 1000)
+        var Authorization = '{"typ":"JWT","alg":"HS256"}{"deviceId":"24429755","accountNumber":"08100004377424-TEF","iss":"http://www.movistarplus.es",'
+            + '"aud":"414e1927a3884f68abc79f7283837fd1","exp":' + exp + ',"nbf":' + iat + '}'; */
+
+        function search() {
+            $('.col-sm').remove();
+            $.ajax({
+                type: "GET",
+                url: 'https://perso.dof6.com/movistarplus/webplayer/users/contents/search?accountnumber=08100004377424-TEF&term=' + $('#search').val(),
+                contentType: "text/plain",
+                /* headers: {
+                    'Authorization': Authorization,
+                }, */
+                crossDomain: true,
+                success: function (data) {
+                    items = data;
+
+                    for (let i = 0; i < data.count; i++) {
+
+                        if (data.Contenidos[i].hasOwnProperty("VodItems") && (data.Contenidos[i].VodItems.length > 0)) {
+                            console.log('Hay VodItems')
+                            if (data.Contenidos[i].VodItems[0].UrlVideo.includes("cutv")) {
+                                console.log('Es grabacion')
+                                $('<div class="col-sm"><a href="ficha.html?id=' + data.Contenidos[i].DatosEditoriales.Id
+                                    + '"><div class="tooltip bootom"><div class="dateItem">' + data.Contenidos[i].VodItems[0].Cadena.Nombre
+                                    + '</div><div class="dateItem">'
+                                    + new Date(parseInt(data.Contenidos[i].VodItems[0].FechaEmision)).DDMMYYYY()
+                                    + ' - ' + new Date(parseInt(data.Contenidos[i].VodItems[0].FechaEmision)).HHMMSS()
+                                    + '</div><div><img id="poster" src="' + data.Contenidos[i].DatosEditoriales.Imagenes[0].uri
+                                    + '" onmouseover="" style="cursor: pointer;"><div id="title">' + data.Contenidos[i].DatosEditoriales.Titulo
+                                    + '</div></div></div></a></div>').appendTo(section);
+
+                            } if (data.Contenidos[i].DatosEditoriales.TipoContenido == 'Serie') {
+
+                                $('<div class="col-sm"><a href="temporada.html?id=' + data.Contenidos[i].DatosEditoriales.Id
+                                    + '"><div class="tooltip bootom"><div class="dateItem">' + data.Contenidos[i].VodItems[0].Cadena.Nombre
+                                    + '</div><div class="dateItem">.</div><div><img id="poster" src="'
+                                    + data.Contenidos[i].DatosEditoriales.Imagenes[0].uri + '" onmouseover="" style="cursor: pointer;"><div id="title">'
+                                    + data.Contenidos[i].DatosEditoriales.Titulo + '</div></div><span class="tiptext">'
+                                    + data.Contenidos[i].DatosEditoriales.NumHijos + ' Temporadas</span></div></a></div>').appendTo(section);
+
+                            }
+                            else {
+                                console.log('Es cartelera')
+                                $('<div class="col-sm"><a href="ficha.html?id=' + data.Contenidos[i].DatosEditoriales.Id
+                                    + '"><div class="tooltip bootom"><div class="dateItem">' + data.Contenidos[i].VodItems[0].Cadena.Nombre
+                                    + '</div><div class="dateItem">En cartelera hasta: '
+                                    + new Date(parseInt(data.Contenidos[i].DatosAccesoAnonimo.FechaFinPublicacion)).DDMMYYYY()
+                                    + '</div><div><img id="poster" src="' + data.Contenidos[i].DatosEditoriales.Imagenes[0].uri
+                                    + '" onmouseover="" style="cursor: pointer;"><div id="title">'
+                                    + data.Contenidos[i].DatosEditoriales.Titulo + '</div></div></div></a></div>').appendTo(section);
+
+                            }
+
+                        } else {
+                            console.log('No hay VodItems')
+                            if (data.Contenidos[i].DatosEditoriales.TipoContenido == 'Serie') {
+
+                                $('<div class="col-sm"><a href="temporada.html?id=' + data.Contenidos[i].DatosEditoriales.Id
+                                    + '"><div class="tooltip bootom"><div class="dateItem">.</div><div><img id="poster" src="'
+                                    + data.Contenidos[i].DatosEditoriales.Imagenes[0].uri + '" onmouseover="" style="cursor: pointer;"><div id="title">'
+                                    + data.Contenidos[i].DatosEditoriales.Titulo + '</div></div><span class="tiptext">'
+                                    + data.Contenidos[i].DatosEditoriales.NumHijos + ' Temporadas</span></div></a></div>').appendTo(section);
+
+                            }
+                            else {
+                                console.log('Es cartelera')
+                                $('<div class="col-sm"><a href="ficha.html?id=' + data.Contenidos[i].DatosEditoriales.Id
+                                    + '"><div class="tooltip bootom"><div class="dateItem">En cartelera hasta: '
+                                    + new Date(parseInt(data.Contenidos[i].DatosAccesoAnonimo.FechaFinPublicacion)).DDMMYYYY()
+                                    + '</div><div><img id="poster" src="' + data.Contenidos[i].DatosEditoriales.Imagenes[0].uri
+                                    + '" onmouseover="" style="cursor: pointer;"><div id="title">'
+                                    + data.Contenidos[i].DatosEditoriales.Titulo + '</div></div></div></a></div>').appendTo(section);
+
+                            }
+                        }
+                        /* if (data.Contenidos[i].DatosEditoriales.TipoContenido == 'Serie') {
+
+                            $('<div class="col-sm"><a href="ficha.html?id=' + data.Contenidos[i].DatosEditoriales.Id
+                                + '"><div class="tooltip bootom"><div class="dateItem">' + data.Contenidos[i].VodItems[0].Cadena.Nombre
+                                + '</div><div class="dateItem">.</div><div><img id="poster" src="'
+                                + data.Contenidos[i].DatosEditoriales.Imagenes[0].uri + '" onmouseover="" style="cursor: pointer;"><div id="title">'
+                                + data.Contenidos[i].DatosEditoriales.Titulo + '</div></div><span class="tiptext">'
+                                + data.Contenidos[i].DatosEditoriales.NumHijos + ' Temporadas</span></div></a></div>').appendTo(section);
+
+                        } else {
+
+
+
+                        } */
+                    }
+                },
+                error: function (err) {
+                    console.log(err.responseText)
+                    $('<div>' + err.responseText + '</div>').appendTo(document.getElementById('result'))
+                }
+            });
+
+            $(document).attr("title", 'Buscar - Movistar+');
+
+        }
+
+        function init() {
+            $('.col-sm').remove();
+            $('<div class="col-sm"><a href="cine.html"><div><img id="poster"src="https://www.movistarplus.es/recorte/e/original/891a21194ca174cbe5ea39ff79d2c776" '
+                + 'onmouseover="" style="cursor: pointer;"><br><div id="title">Cine</div></div></a></div><div class="col-sm"><a href="u7d.html"><div><img id="poster" '
+                + 'src="http://ver.movistarplus.es/img/play_seguimiento.fw.png" onmouseover=""style="cursor: pointer;"><br><div id="title">U7D</div></div></a></div>'
+                + '<div class="col-sm"><a href="series.html"><div><img id="poster" src="https://www.movistarplus.es/recorte/e/original/af2d58875788241443236950a576ae53" '
+                + 'onmouseover="" style="cursor: pointer;"><br><div id="title">Series</div></div></a></div><div class="col-sm"><a href="canales.html"><div><img id="poster" '
+                + 'src="https://www.movistarplus.es/recorte/e/original/b7aa3f13bbc2137b2f10b5a2fc811b7e" onmouseover="" style="cursor: pointer;"><br><div id="title">Directo</div>'
+                + '</div></a></div>').appendTo(section)
+
+            $(document).attr("title", 'Movistar+');
+        }
+
+        Date.prototype.HHMMSS = function () {
+
+            var h = this.getHours().toString(),
+                m = this.getMinutes().toString(),
+                s = this.getSeconds().toString(),
+                HH = h[1] ? h : "0" + h[0],
+                MM = m[1] ? m : "0" + m[0];
+
+            return HH + ":" + MM;
+        };
+
+        Date.prototype.DDMMYYYY = function () {
+
+            var d = this.getDate().toString(),
+                m = this.getMonth().toString(),
+                y = this.getFullYear().toString(),
+                dd = d[1] ? d : "0" + d[0],
+                mm = m[1] ? m : "0" + (parseInt(m[0]) + 1),
+                yyyy = y[2] ? y : "0" + (y[1] ? y : "0" + y[0]);
+            // console.log(m[1])
+            return dd + "/" + mm + "/" + yyyy;
+        };
+
+        $('#search').on('keydown', function (evt) {
+            switch (evt.keyCode) {
+                case 27:
+                    init();
+                    $('#search').val("");
+                    $(document).attr("title", 'Movistar+');
+                    break;
+                case 13:
+                    search();
+                    break;
+
+                default:
+                    break;
+            }
+        });
+
+    </script>
+
+</body>
+
+
+</html>

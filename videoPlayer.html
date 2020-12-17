@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html>
+    <!-- https://www.microsoft.com/en-us/p/hevc-video-extensions-from-device-manufacturer/9n4wgh0z6vhq?activetab=pivot:overviewtab -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.0.min.js" crossorigin="anonymous"></script>
+    <script src="http://orange-opensource.github.io/hasplayer.js/1.15.1/dist/hasplayer.min.js"></script>
+    <!-- <script src="hasplayer.js"></script> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css">
+    <style>
+        .sliderDiv {
+            display: none;
+            width: 100%;
+            position: absolute;
+            bottom: 40px;
+        }
+
+        .slider {
+            width: 90%;
+            margin: 3px auto;
+        }
+
+        .slick-slide {
+            width: 100%;
+            margin: 3px 10px;
+        }
+
+        .slick-slide img {
+            width: 80px;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+            color: white;
+        }
+
+        .slick-slide {
+            transition: all ease-in-out .1s;
+            opacity: .2;
+        }
+
+        .slick-active {
+            opacity: 1;
+        }
+
+        .slick-current {
+            opacity: 1;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: black;
+            color: #FFF;
+            font-family: Helvetica, Arial;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .videoContainer {
+            width: 100%;
+            height: 100%;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        /* ******************************************************** */
+        /* ************  CONTROL BAR AND BUTTONS ****************** */
+        /* ******************************************************** */
+
+        .controlBar {
+            display: none;
+            opacity: 0.9;
+            text-align: center;
+            width: 100%;
+            height: 20px;
+            background: #fff;
+            position: absolute;
+            bottom: 3px;
+            left: 0;
+            padding: 5px;
+            background-image: -webkit-linear-gradient(top, #354241 0%, #081110 100%);
+            background-image: linear-gradient(to bottom, #354241 0%, #081110 100%);
+            background-image: -ms-linear-gradient(top, #354241 0%, #081110 100%);
+        }
+
+        .seekbar-container {
+            overflow: hidden;
+            display: none;
+            border: 1px solid #283332;
+            width: auto;
+            position: relative;
+            padding: 8px 110px 8px 4px;
+            background-image: -ms-linear-gradient(top, #060C0C 70%, #152524 100%);
+            background-image: -moz-linear-gradient(top, #060C0C 70%, #152524 100%);
+            background-image: -o-linear-gradient(top, #060C0C 70%, #152524 100%);
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.7, #060C0C), color-stop(1, #152524));
+            background-image: -webkit-linear-gradient(top, #060C0C 70%, #152524 100%);
+            background-image: linear-gradient(to bottom, #060C0C 70%, #152524 100%);
+        }
+
+        .seekBar {
+            display: block;
+            height: 6px;
+            width: 100%;
+        }
+
+        progress {
+            display: inline-block;
+            background-image: -ms-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -moz-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -o-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #3C4948), color-stop(0.1, #3C4948), color-stop(0.9, #3C4948), color-stop(0.1, #3C4948), color-stop(1, #3C4948));
+            background-image: -webkit-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: linear-gradient(to right, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            color: orangered;
+        }
+
+        progress::-webkit-progress-bar {
+            border-radius: 10px;
+            background-image: -ms-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -moz-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -o-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #3C4948), color-stop(0.1, #3C4948), color-stop(0.9, #3C4948), color-stop(0.1, #3C4948), color-stop(1, #3C4948));
+            background-image: -webkit-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: linear-gradient(to right, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+        }
+
+        progress::-webkit-progress-value {
+            background: #818181 !important;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-right: 1px solid #000;
+        }
+
+        progress:hover {
+            cursor: pointer;
+        }
+
+        .videoContainer:-webkit-full-screen {
+            width: 100%;
+            height: 100%;
+        }
+
+        .videoContainer:-ms-fullscreen {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .time {
+            position: relative;
+            vertical-align: middle;
+            margin-top: 5px;
+            display: flex;
+        }
+
+        .time div:hover {
+            cursor: default;
+        }
+
+        .current-time,
+        .duration {
+            font: 15px Arial;
+            display: inline-block;
+            padding: 0 0 0 5px;
+            margin-right: 5px;
+        }
+
+        .duration {
+            border-left: 1px solid;
+            color: #656762;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .live {
+            display: none;
+            float: left;
+            font: 13px Arial;
+            color: #eee;
+            padding: 3px;
+        }
+
+        .bufferingDiv {
+            position: fixed;
+            z-index: 3;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: 50%;
+            margin-top: -30px;
+            width: 60px;
+            height: 60px;
+            list-style: none;
+            visibility: hidden;
+        }
+
+        li {
+            background-color: #FFFFFF;
+            width: 10px;
+            height: 10px;
+            float: right;
+            margin-right: 5px;
+            box-shadow: 0px 100px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+    <style>
+        .videoContainer {
+            overflow: hidden;
+        }
+
+        .controls {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.7);
+            /* transform: translateY(100%); */
+            transition: all 0.5s;
+        }
+
+        .buttons {
+            width: 100%;
+            padding: 0 5px;
+            align-items: center;
+            vertical-align: middle;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            -webkit-box-align: center;
+            cursor: pointer;
+        }
+
+        .buttons button {
+            background: none;
+            border: 0;
+            outline: 0;
+            cursor: pointer;
+        }
+
+        .buttons button::before {
+            font-family: 'Font Awesome 5 Free';
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            font-size: 28px;
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .buttons button.play::before {
+            content: '\f144';
+        }
+
+        .buttons button.pause::before {
+            content: '\f28b';
+        }
+
+        .orange-bar {
+            height: 10px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #000;
+        }
+
+        .seekbar:hover {
+            height: 10px;
+        }
+
+        .orange-juice {
+            height: 10px;
+            background-color: orangered;
+        }
+
+        .channelName {
+            font: 20px Arial;
+            width: 100%;
+            min-width: 170px;
+            position: relative;
+            vertical-align: middle;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .sliderVol:hover .slider-color {
+            display: inline-block;
+            width: 120%;
+        }
+
+        .sliderVol:hover {
+            width: 200px;
+        }
+
+        .sliderVol {
+            position: relative;
+            vertical-align: middle;
+            /* margin-top: 15px; */
+            padding: 10px;
+            align-items: center;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            -webkit-box-align: center;
+        }
+
+        .slider-color {
+            overflow: hidden;
+            margin-left: 5px;
+            margin-top: 5px;
+            -webkit-appearance: none;
+            width: 0;
+            height: 10px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: opacity .15s ease-in-out;
+            transition: opacity .15s ease-in-out;
+        }
+
+        .slider-color:hover {
+            opacity: 1;
+        }
+
+        .slider-color::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .slider-color::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            border: 0;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .right {
+            margin-right: 0;
+        }
+
+        .button-fullscreen {
+            width: 30px;
+            margin-right: 20px;
+        }
+
+        .svg-inline--fa.fa-w-16,
+        .svg-inline--fa.fa-w-18,
+        .svg-inline--fa.fa-w-14 {
+            width: 25px;
+            height: 25px;
+            margin-top: 5px;
+            color: white;
+        }
+
+        #bmpui-id-141 {
+            width: 350px;
+            right: 0.7em;
+        }
+
+        .bmpui-container-wrapper {
+            margin: 0;
+        }
+
+        .bmpui-ui-settings-panel {
+            display: none;
+        }
+
+        .button-playpause,
+        .button-init,
+        .live-button {
+            margin-left: 10px;
+        }
+
+        .emitiendo {
+            font: 20px Arial;
+            width: 100%;
+            min-width: 170px;
+            position: relative;
+            vertical-align: middle;
+            margin-top: 5px;
+            margin-right: 5px;
+            display: inline-block;
+            bottom: 8px;
+        }
+
+        .seek {
+            width: 100%;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+        }
+
+        .seek {
+            display: inline-block;
+            background-image: -ms-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -moz-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -o-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #3C4948), color-stop(0.1, #3C4948), color-stop(0.9, #3C4948), color-stop(0.1, #3C4948), color-stop(1, #3C4948));
+            background-image: -webkit-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: linear-gradient(to right, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            color: #79b800;
+        }
+
+        .seek::-webkit-progress-bar {
+            border-radius: 10px;
+            background-image: -ms-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -moz-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -o-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #3C4948), color-stop(0.1, #3C4948), color-stop(0.9, #3C4948), color-stop(0.1, #3C4948), color-stop(1, #3C4948));
+            background-image: -webkit-linear-gradient(left, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            background-image: linear-gradient(to right, #3C4948 0%, #3C4948 10%, #3C4948 90%, #3C4948 10%, #3C4948 100%);
+            color: #79b800;
+            /* #020303 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="videoContainer" class="videoContainer">
+        <video id="videoPlayer"></video>
+        <div class="controls">
+            <div id="bmpui-id-141" class="bmpui-ui-settings-panel " style="width: 250px; height: fit-content;">
+                <div class="bmpui-container-wrapper">
+                    <div id="bmpui-id-140" class="bmpui-ui-settings-panel-page bmpui-active" role="menu">
+                        <div class="bmpui-container-wrapper">
+                            <div id="bmpui-id-129" class="bmpui-ui-settings-panel-item" role="menuitem"
+                                aria-haspopup="true">
+                                <div class="bmpui-container-wrapper">
+                                    <label id="bmpui-id-130" class="bmpui-ui-label">Video Quality</label>
+                                    <select id="bmpui-id-128"
+                                        class="bmpui-ui-selectbox bmpui-ui-videoqualityselectbox video-tracks"
+                                        style="display: inline-block;">
+                                        <!-- <option value="null" selected="selected">auto</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="bmpui-id-135" class="bmpui-ui-settings-panel-item" role="menuitem"
+                                aria-haspopup="true">
+                                <div class="bmpui-container-wrapper">
+                                    <label id="bmpui-id-136" for="bmpui-id-134" class="bmpui-ui-label">Audio
+                                        Track</label>
+                                    <select id="bmpui-id-134"
+                                        class="bmpui-ui-selectbox bmpui-ui-audiotrackselectbox audio-tracks">
+                                        <!-- <option value="null" selected="selected">auto</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="bmpui-id-176" class="bmpui-ui-settings-panel-item" role="menubar"
+                                aria-haspopup="true">
+                                <div class="bmpui-container-wrapper">
+                                    <label id="bmpui-id-175" class="bmpui-ui-label">
+                                        <span>Subtitles</span>
+                                    </label>
+                                    <select id="bmpui-id-173"
+                                        class="bmpui-ui-selectbox bmpui-ui-subtitleselectbox subtitle-tracks"
+                                        aria-label="Select subtitle">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="orange-bar">
+                <progress id="seekBar" min="" class="seekBar" value="" max=""></progress>
+            </div>
+            <div class="buttons">
+                <input type="button" class="far fa-play-circle button-playpause"></input>
+                <input type="button" class="fas fa-undo button-init" style="display: none;"></input>
+                <input type="button" class="fas fa-satellite-dish live-button" style="display: none;"></input>
+                <div class="sliderVol">
+                    <input type="button" id="button-volume" class="fas fa-volume-up button-volume">
+                    <input type="range" min="1" max="100" value="50" class="slider-color" id="vol">
+                </div>
+                <div class="row emitiendo">
+                    <div class="col-sm">
+                        <div class="channelName"></div>
+                        <div class="orange-bar progreso">
+                            <progress id="seek" min="" class="seek" value="" max=""></progress>
+                        </div>
+                    </div>
+                </div>
+                <div class="time right">
+                    <div class="current-time"></div>
+                    <div class="duration"></div>
+                </div>
+                <button class="opts">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <input type="button" class="fa fa-expand button button-fullscreen right"></input>
+                <input type="button" class="fas fa-compress button button-fullscreen right" style="display: none;"></input>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var bitrates, qualitySwitches = [], video = document.querySelector("video"), player, isPlaying = false, data, items,
+            controlBar = $('.controls'), i = null, audioDatas, vol = 1, slider = document.querySelector('.slider-color');
+
+        function getTrackId(track) {
+            return track.id || track.lang;
+        }
+
+        function getBitrates() {
+            bitrates = player.getMetricsExt().getBitratesWithResolutionForType("video");
+            if (bitrates && bitrates.length > 1) {
+                var bitOptions = "";
+                for (i = 0; i < bitrates.length; i++) {
+                    bitOptions += '<option value="' + bitrates[i].bitrate + '" id="' + i + '">' + bitrates[i].width + 'x' + bitrates[i].height + '</option>';
+                }
+                $(".video-tracks").html(bitOptions);
+
+                $(".video-tracks").change(function () {
+                    player.setAutoSwitchQuality(false)
+                    player.setQualityFor('video', parseInt($('.video-tracks').children(':selected').attr('id')))
+                    /* var currentTrackId = $("select option:selected")[0].value;
+                    // player.setQualityFor('video', i)
+                    for (i = 0; i < bitrates.length; i++) {
+                        // var id = $(this).children(":selected").attr("id");
+                        // player.setQualityFor('video', $(this).children(":selected").attr("id"))
+                        // player.setInitialQualityFor(type, value)
+                        // player.setAutoSwitchQuality(value)
+                        // player.setQualityFor(type, value)
+                        if (getTrackId(bitrates[i]) === currentTrackId) {
+                            player.setQualityFor('video', parseInt($('.video-tracks').children(':selected').attr('id')))
+                        }
+                    } */
+                });
+
+                // $(".box").show();
+            } else {
+                $(".box").hide();
+            }
+        }
+
+        function getAudioTrack() {
+            audioDatas = player.getTracks(MediaPlayer.TRACKS_TYPE.AUDIO);
+            if (audioDatas && audioDatas.length > 1) {
+                var selectOptions = "";
+                for (i = 0; i < audioDatas.length; i++) {
+                    selectOptions += '<option value="' + getTrackId(audioDatas[i]) + '">' + audioDatas[i].lang + '</option>';
+                    // selectOptions += '<option value="' + getTrackId(audioDatas[i]) + '">' + audioDatas[i].lang + (audioDatas[i].id ? (' - ' + audioDatas[i].id) : '') + '</option>';
+                }
+                $(".audio-tracks").html(selectOptions);
+                audioTracksSelectIsPresent = true;
+
+
+                $(".audio-tracks").change(function () {
+                    var currentTrackId = $(".audio-tracks option:selected")[0].value;
+                    for (i = 0; i < audioDatas.length; i++) {
+                        if (getTrackId(audioDatas[i]) === currentTrackId) {
+                            player.selectTrack(MediaPlayer.TRACKS_TYPE.AUDIO, audioDatas[i]);
+                        }
+                    }
+                });
+            } else {
+                $(".audio-tracks").hide();
+            }
+            // selectOptions += '<option value="' + getTrackId(audioDatas[i]) + '">' + audioDatas[i].lang + '</option>';      
+        }
+
+        function getSubtitles() {
+            var subtitles = player.getTracks(MediaPlayer.TRACKS_TYPE.TEXT);
+            if (subtitles && subtitles.length > 1) {
+                var selectOptions = "";
+                selectOptions += '<option value="off">off</option>';
+                for (i = 0; i < subtitles.length; i++) {
+                    selectOptions += '<option value="' + getTrackId(subtitles[i]) + '">' + subtitles[i].lang + '</option>';
+                }
+                $(".subtitle-tracks").html(selectOptions);
+
+                $(".subtitle-tracks").change(function () {
+                    if ($(".subtitle-tracks option:selected")[0].value === 'off') {
+                        player.enableSubtitles(false)
+                    } else {
+                        var currentTrackId = $(".subtitle-tracks option:selected")[0].value;
+                        player.enableSubtitles(true)
+                        for (i = 0; i < subtitles.length; i++) {
+                            if (getTrackId(subtitles[i]) === currentTrackId) {
+                                player.selectTrack(MediaPlayer.TRACKS_TYPE.TEXT, subtitles[i]);
+                            }
+                        }
+                    }
+                });
+            } else {
+                $(".subtitle-tracks").hide();
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement &&    // alternative standard method
+                !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {  // current working methods
+                if (document.getElementById("videoContainer").requestFullscreen) {
+                    document.getElementById("videoContainer").requestFullscreen();
+                } else if (document.getElementById("videoContainer").msRequestFullscreen) {
+                    document.getElementById("videoContainer").msRequestFullscreen();
+                } else if (document.getElementById("videoContainer").mozRequestFullScreen) {
+                    document.getElementById("videoContainer").mozRequestFullScreen();
+                } else if (document.getElementById("videoContainer").webkitRequestFullscreen) {
+                    document.getElementById("videoContainer").webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+                // $('.button-fullscreen').removeClass('fa-expand');
+                // $('.button-fullscreen').addClass('fa-compress');
+                $('.fa-expand').css('display', 'none')
+                $('.fa-compress').css('display', '')
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+                // $('.button-fullscreen').removeClass('fa-compress');
+                // $('.button-fullscreen').addClass('fa-expand');
+                $('.fa-compress').css('display', 'none')
+                $('.fa-expand').css('display', '')
+            }
+        }
+
+        var setVolumeOff = function (value) {
+            if (value) {
+                $(".button-volume").removeClass("fa-volume-up");
+                $(".button-volume").addClass("fa-volume-mute");
+                // $('#vol').val(0);
+            } else {
+                $(".button-volume").removeClass("fa-volume-mute");
+                $(".button-volume").addClass("fa-volume-up");
+                // $('#vol').val(100);
+            }
+        };
+
+        var setPlaying = function (value) {
+            if (value) {
+                $(".button-playpause").removeClass("fa-play-circle");
+                $(".button-playpause").addClass("fa-pause-circle");
+            } else {
+                $(".button-playpause").removeClass("fa-pause-circle");
+                $(".button-playpause").addClass("fa-play-circle");
+            }
+        };
+
+        function setTimeWithSeconds(sec) {
+            var sec_num = parseInt(sec, 10);
+            var hours = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours < 10) { hours = "0" + hours; }
+            if (minutes < 10) { minutes = "0" + minutes; }
+            if (seconds < 10) { seconds = "0" + seconds; }
+            var time = hours + ':' + minutes + ':' + seconds;
+            return time;
+        }
+
+        function initSeekBar() {
+            $(".controlBar").show();
+            $(".seekbar-container").show();
+
+            if (video.duration !== Infinity) {
+                $("#seekBar").attr('max', video.duration);
+                $(".duration").text(setTimeWithSeconds(video.duration));
+                $(".live").hide();
+                $('.progreso').hide();
+                $('.emitiendo').css('bottom', '2px')
+                $('.button-init').css('display', 'none')
+                $('.live-button').css('display', 'none')
+            } else {
+                var range = player.getDVRWindowRange(),
+                    duration = range.end - range.start;
+                $("#seekBar").attr('max', duration);
+                $(".duration").text(setTimeWithSeconds(range.end));
+                $('.buttons').css('padding', '0 5px')
+                $(".live").show();
+                $(".progreso").show();
+                $(".seekBar").css('color', 'green');
+                $('.button-init').css('display', '')
+                $('.live-button').css('display', '')
+                updateSeek();
+            }
+        }
+
+        function updateSeekBar() {
+
+            if (video.duration !== Infinity) {
+                $("#seekBar").attr('value', video.currentTime);
+                $(".current-time").text(setTimeWithSeconds(video.currentTime));
+            } else {
+                var range = player.getDVRWindowRange(),
+                    duration = range.end - range.start,
+                    value = video.currentTime - range.start;
+                $("#seekBar").attr('max', duration);
+                $("#seekBar").attr('value', value);
+                $(".duration").text(setTimeWithSeconds(range.end));
+                $(".current-time").text(setTimeWithSeconds(video.currentTime));
+            }
+        }
+
+        function onSeek() {
+            if (video.duration !== Infinity) {
+                player.seek(event.offsetX * video.duration / $("#seekBar").width());
+            } else {
+                var range = player.getDVRWindowRange(),
+                    progress = event.offsetX / $("#seekBar").width(),
+                    duration = range.end - range.start,
+                    seekTime = range.start + (duration * progress);
+                player.seek(seekTime);
+            }
+            updateSeekBar();
+        }
+
+        function initBar() {
+            controlBar.show();
+            clearTimeout(i);
+            controlBar.show();
+            $('body').css({ cursor: 'auto' });
+            i = setTimeout(function () {
+                controlBar.fadeOut(500, function () {
+                    $('body').css({ cursor: 'none' });
+                });
+            }, 5000);
+        }
+
+        function setMute() {
+            video.muted = !video.muted;
+            if (video.muted) {
+                setVolumeOff(true);
+                video.volume = 0;
+                $('.slider-color').val('0');
+            } else {
+                setVolumeOff(false);
+                video.volume = vol;
+                $('.slider-color').val(vol * 100);
+            }
+        }
+
+        function initControlBar() {
+
+            $(document).on('click', '.button-playpause', function () {
+                isPlaying ? video.pause() : video.play();
+            });
+
+            $(document).on('click', '.button-volume', function (event) {
+                setMute()
+            });
+
+            $('#vol').change(function () {
+                vol = this.value / 100;
+                video.volume = vol;
+                if (video.muted) {
+                    video.muted = !video.muted;
+                }
+            })
+
+            $(document).on('click', '.button-fullscreen', function (event) {
+                toggleFullScreen();
+            });
+
+            $("#seekBar").click(function (event) {
+                $('.live-button').css('display', '');
+                $('.live-button').css('color', 'grey');
+                $('.button-init').css('display', 'none');
+                onSeek(event);
+            });
+
+            $('.opts').click(function () {
+                if ($('.bmpui-ui-settings-panel').is(':visible')) {
+                    $('.fa-cog').css({
+                        '-webkit-transform': 'rotate(45deg)',
+                        '-moz-transform': 'rotate(45deg)',
+                        '-ms-transform': 'rotate(45deg)',
+                        'transform': 'rotate(45deg)'
+                    });
+                    $('.bmpui-ui-settings-panel').hide()
+                } else {
+                    $('.fa-cog').css({
+                        '-webkit-transform': 'rotate(-45deg)',
+                        '-moz-transform': 'rotate(-45deg)',
+                        '-ms-transform': 'rotate(-45deg)',
+                        'transform': 'rotate(-45deg)'
+                    });
+                    $('.bmpui-ui-settings-panel').show()
+                }
+            })
+
+            $(document).keydown(function (e) {
+                switch (e.keyCode) {
+                    case 37:
+                        // backward video 10s
+                        if (video.duration !== Infinity) {
+                            video.currentTime = video.currentTime - 10;
+                        }
+                        break;
+                    case 39:
+                        // forward video 10s
+                        if (video.duration !== Infinity) {
+                            video.currentTime = video.currentTime + 10;
+                        }
+                        break;
+                    case 32:
+                        // play/pause video
+                        isPlaying ? video.pause() : video.play();
+                        break;
+                    case 38:
+                        // volume up
+                        video.volume = video.volume + 0.1;
+                        break;
+                    case 40:
+                        // volume down
+                        break;
+                    case 77:
+                        setMute()
+                        break;
+                    case 82:
+                        reload();
+                        break;
+                    case 70:
+                        // enter/exit fullscreen
+                        toggleFullScreen()
+                        break;
+                    // default:
+                    // code block
+                }
+            });
+
+            $(document).on('click', '.button-init', function () {
+                var hora = new Date().getTime();
+                var id = parseInt(window.location.href.split('&id=')[1]);
+                video.currentTime = video.currentTime - (hora - parseInt(items[id].Pases[0].FechaHoraInicio)) / 1000;
+                $('.button-init').css('display', 'none');
+                $('.live-button').css('display', '');
+                $('.live-button').css('color', 'grey');
+            })
+            
+            $(document).on('click', '.live-button', function () {
+                
+                video.currentTime = player.getDVRWindowRange().end
+                $('.live-button').css('display', '');
+                $('.live-button').css('color', '');
+                $('.button-init').css('display', '');
+
+            })
+        }
+
+        function initVideoController() {
+
+            $("#videoPlayer").on("play", function () {
+                isPlaying = true;
+                setPlaying(true);
+                if (video.muted) {
+                    setVolumeOff(true);
+                } else {
+                    setVolumeOff(false);
+                }
+            });
+
+            $("#videoPlayer").dblclick(function () {
+                toggleFullScreen();
+            });
+
+            $("#videoPlayer").on("pause", function () {
+                isPlaying = false;
+                setPlaying(false);
+                // clearTimeout(updateTimeout);
+            });
+
+            if (video.muted) {
+                setVolumeOff(true);
+            }
+
+            $("#videoPlayer").on("loadeddata", function () {
+                initSeekBar();
+                getBitrates();
+                getAudioTrack();
+                getSubtitles();
+            });
+
+            $("#videoPlayer").on("timeupdate", function () {
+                updateSeekBar();
+            });
+
+        }
+
+        function initPlayer() {
+
+            player = new MediaPlayer();
+            // player = dashjs.MediaPlayer().create();
+            player.init(video);
+            player.setAutoPlay(true);
+            // getAudioTrack();
+            player.setAutoSwitchQuality(true)
+            // player.addEventListener("cueEnter", onCueEnter.bind(this));
+
+            player.setDefaultAudioLang('spa');
+            // In ExoPlayer:
+            // trackSelector.setParameters(trackSelector.getParameters().withPreferredAudioLanguage(language))
+            // player.getDebug().setLevel(4);
+            /* setTimeout(() => {
+                $(document).trigger({ type: 'keypress', which: 32, keyCode: 32 });
+                // $(document).trigger($.Event('keyPress').which = 32)
+                player.play()
+                // video.play()
+            }, 1500); */
+        }
+
+        function launchPlayer(manifest) { 
+            startTime = new Date();
+            laurl = 'http://test.playready.microsoft.com/service/rightsmanager.asmx'.trim();
+            // laurl = 'https://playready3.entitlement.eu.theplatform.com/playready/rightsmanager.asmx?schema=1.0&account=http%3A%2F%2Faccess.auth.theplatform.com%2Fdata%2FAccount%2F2705583831&releasePid=H_w6CG39ff1E&auth=eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJwZ2xzLXBycy10cnVzdGVkLzYxZmI1NDg1LTA4ZTAtNDYxMC05ZWMzLWE1MTNhNzM4M2FkYiIsImlzcyI6IjEiLCJleHAiOjE1OTUxNzg5MzIsImlhdCI6MTU5NTE3MTczMjAwNSwianRpIjoiYzdiY2Y4MTMtZGNmMy00MzY0LTg3NDYtNjNkZWI4MmU0YWUyIiwiZGlkIjoicGdscy1wcnMtdHJ1c3RlZCIsInVubSI6IjYxZmI1NDg1LTA4ZTAtNDYxMC05ZWMzLWE1MTNhNzM4M2FkYiIsImN0eCI6IntcInVzZXJOYW1lXCI6XCI2MWZiNTQ4NS0wOGUwLTQ2MTAtOWVjMy1hNTEzYTczODNhZGJcIixcImF0dHJpYnV0ZXNcIjp7XCJzdWJzY3JpcHRpb25MZXZlbFwiOlwic3RhbmRhcmRcIn19XG4iLCJvaWQiOm51bGx9.LmaSnsQwidTL12SOig6BEaJZayAs2Qjg9QnnckRo7EaKbSDXmqu7gQ8a9np8NSj2OBIk9VPn21korTT1-Fb5-Mgq5mUdlEhXOveqI8rBrKnn9sPdt3RIKmmGntmDv1n17LFYrhu1ieXvPIVRN_Rc4errD_xmLLasRXxXL4Yfn1GRPD_0H0lnLrOh_6meGPLkCvUosS1PRQwAAPseTvAkq-MdTeVQmqEIrAq8OnkfC1sgNkRNIc9QsFMi-vmeklam58B24qE0iITbY1NZLJre_9dXM-Vla3mm5HHXSdei3dtXxRlwIhbNwmcFgIG4KuJHFL-CvI18fm-i5nspnAOh5Q'.trim()
+            // https://b38543.1.cdn.telefonica.com/38543/prod/mss/cplus-1593197-md_cplus-1593197-pry_20200113_165124/index.ism/Manifest?tcdn-bitrate-filter=mplusvod
+            // protectionData = new MediaPlayer.vo.protection.ProtectionData(laurl, null, null);
+            // protData = { 'com.microsoft.playready': protectionData };
+            protData = {
+                // one entry for each key system ('com.microsoft.playready' or 'com.widevine.alpha')
+                "com.microsoft.playready": {
+                    laURL: laurl,
+                    // withCredentials: "[license_request_withCredentials_value (true or false, optional)]",
+                    // cdmData: "[CDM data (optional)]", // Supported by PlayReady key system (using MS-prefixed EME API) only
+                    // serverCertificate: "[license_server_certificate (as Base64 string, optional)]",
+                    // audioRobustness: "SW_SECURE_CRYPTO", // Considered for Widevine key system only
+                    // videoRobustness: "SW_SECURE_DECODE" // Considered for Widevine key system only
+                }
+            }
+            stream = {
+                url: manifest,
+                protData: protData
+            };
+            // http://cutv-wp0.cdn.telefonica.com/4528/vxfmt=dp/index.ism/Manifest?device_profile=MSS_WPC_DRM&start_time=2020-04-13T20:50:00Z
+            // window.location.href.split('?')[1]
+            // Open stream
+            // player.load('http://vfott2cdn.gb.vodafone.es/shss/LIVE$CUP001/2.ism/Manifest?start=LIVE&end=END&device=HSS_XDSL_CLR_RB_HD');
+            player.load(stream);
+            initBar();
+            $('.channelName').html(decodeURIComponent(window.location.href.split('&title=')[1].split('&id=')[0]))
+            video.volume = vol;
+            $('.slider-color').val(vol * 100);
+            // player.initialize(video, link, true)
+            // update();
+        }
+
+        function ctrlKeys(params) {
+            /* $(document).keydown(function (e) {
+                switch (e.keyCode) {
+                    case 37:
+                        // backward video 10s
+                        if (video.duration !== Infinity) {
+                            video.currentTime = video.currentTime - 10;
+                        }
+                        break;
+                    case 39:
+                        // forward video 10s
+                        if (video.duration !== Infinity) {
+                            video.currentTime = video.currentTime + 10;
+                        }
+                        break;
+                    case 32:
+                        // play/pause video
+                        isPlaying ? video.pause() : video.play();
+                        break;
+                    case 38:
+                        // volume up
+                        break;
+                    case 40:
+                        // volume down
+                        break;
+                    case 77:
+                        setMute()
+                        break;
+                    case 82:
+                        reload();
+                        break;
+                    case 70:
+                        // enter/exit fullscreen
+                        toggleFullScreen()
+                        break;
+                    // default:
+                    // code block
+                }
+            }); */
+        }
+
+        function onLoad() {
+            // initNetBalancerSlider();
+
+            initVideoController();
+
+            $("#chartToToggle").hide();
+
+            initPlayer();
+
+            launchPlayer(window.location.href.split('?url=')[1].split('&title=')[0]);
+
+            $(document).attr("title", decodeURIComponent(window.location.href.split('&title=')[1].split('&id=')[0]));
+
+            initControlBar();
+
+            ctrlKeys();
+        }
+
+        function updateSeek() {
+            $.get('http://ottcache.dof6.com/movistarplus/webplayer/OTT/contents/epg', function (data) {
+                items = data;
+                var date = new Date().getTime();
+                var id = parseInt(window.location.href.split('&id=')[1]);
+                // $('.channelName').html(data[id].Pases[0].Titulo)
+                if (data[i].Pases[0].TipoContenido == 'Episodio') {
+                    $('.channelName').html(data[id].Pases[0].Titulo + " - " + data[id].Pases[0].TituloEpisodio);
+                } else {
+                    $('.channelName').html(data[id].Pases[0].Titulo);
+                }
+                // console.log(data[id].Pases[0].FechaHoraInicio)
+                console.log('Transcurrido: ' + (date - parseInt(data[id].Pases[0].FechaHoraInicio)) / 1000)
+                $('.seek').attr('value', (date - parseInt(data[id].Pases[0].FechaHoraInicio)));
+                $('.seek').attr('max', (parseInt(data[id].Pases[0].FechaHoraFin) - parseInt(data[id].Pases[0].FechaHoraInicio)));
+                $(document).attr("title", decodeURIComponent(data[id].Nombre + ' - ' + data[id].Pases[0].Titulo));
+            })
+        }
+
+        $(document).ready(function () {
+
+            onLoad();
+            $('html').mousemove(function () {
+                initBar();
+                if (video.Infinity) {
+                    updateSeek();
+                }
+            });
+
+        });
+
+        /*
+            TODO:
+
+            - Usar subtitulos externos
+            - Reproduccion rapida
+            - Adaptar reproductor a tv online (Hecho)
+            - Añadir bolita al slider
+            -
+
+        */
+
+    </script>
+</body>
+
+</html>
+
+<!-- https://www.primevideo.com/detail/0H7JFOPK2QO9WVZ8D9D0J5ZRQN/ref=atv_tv_hom_c_C9Fktd_brws_10_2 -->
+<!-- https://s3-dub-2.cf.dash.row.aiv-cdn.net/dm/2$0WDTHHrhYEw_V46nD_6eTOVYibc~/09c1/0b42/2509/4d2a-9339-ea97a10e89e5/4e25ec2f-f1c0-4ae3-bb1b-c16c6055884f_corrected.mpd?encoding=hex&amznDtid=AOAGZA014O5RE -->
+<!-- https://atv-ps-eu.primevideo.com/cdp/catalog/GetPlaybackResources?asin=amzn1.dv.gti.96b0272a-6066-0251-300b-a4245a8796eb&consumptionType=Streaming&desiredResources=PlaybackUrls%2CCatalogMetadata%2CForcedNarratives%2CSubtitlePresets%2CSubtitleUrls%2CTransitionTimecodes%2CTrickplayUrls%2CCuepointPlaylist%2CXRayMetadata%2CPlaybackSettings&deviceID=1223271bb9861154ea53e6d304508897d9e1e89187fa0a4fc9f8c32f&deviceTypeID=AOAGZA014O5RE&firmware=1&gascEnabled=true&marketplaceID=A3K6Y4MI8GDYMT&resourceUsage=CacheResources&userWatchSessionId=75fb1d69-3653-4475-ba62-5e41869b4ff7&videoMaterialType=Feature&playerType=html5&clientId=f22dbddb-ef2c-48c5-8876-bed0d47594fd&operatingSystemName=Windows&operatingSystemVersion=10.0&deviceDrmOverride=CENC&deviceStreamingTechnologyOverride=DASH&deviceProtocolOverride=Https&supportedDRMKeyScheme=SINGLE_KEY&liveManifestType=live&deviceBitrateAdaptationsOverride=CVBR%2CCBR&titleDecorationScheme=primary-content&subtitleFormat=TTMLv2&languageFeature=MLFv2&uxLocale=es_ES&xrayDeviceClass=normal&xrayPlaybackMode=playback&xrayToken=XRAY_WEB_2020_V1&playbackSettingsFormatVersion=1.0.0 -->
+<!-- https://s3-dub-2.cf.dash.row.aiv-cdn.net/dm/2$0WDTHHrhYEw_V46nD_6eTOVYibc~/09c1/0b42/2509/4d2a-9339-ea97a10e89e5/4e25ec2f-f1c0-4ae3-bb1b-c16c6055884f_corrected.mpd?encoding=hex&amznDtid=AOAGZA014O5RE -->
+
+<!-- {
+    keySystem: r,
+    configurations: [[{
+        initDataTypes: [o],
+        audioCapabilities: [{
+            contentType: 'audio/mp4; codecs="mp4a.40.2"'
+        }],
+        videoCapabilities: [{
+            contentType: 'video/mp4; codecs="avc1.4D401E"',
+            robustness: "HW_SECURE_DECODE"
+        }, {
+            contentType: 'video/mp4; codecs="avc1.4D401E"',
+            robustness: "SW_SECURE_DECODE"
+        }]
+    }]]
+} -->

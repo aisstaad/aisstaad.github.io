@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<!-- <title>Movistar+</title> -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="http://ver.movistarplus.es/css/main_min_css.php?m=1580989814"> -->
+	<style>
+		span {
+			padding: 0 0 0 0;
+		}
+
+		.subtitulo {
+			font-size: 20px;
+			background-color: #444;
+			border-radius: 3px;
+			margin-top: 3px;
+			width: 300px;
+			align-items: center;
+			text-align: justify;
+		}
+
+		.text {
+			/* font-size: 20px; */
+			background-color: #2b2b2b;
+			border-radius: 3px;
+			margin-top: 3px;
+			width: 300px;
+			align-items: center;
+			text-align: justify;
+		}
+
+		.navbar {
+			z-index: 1;
+			position: fixed;
+			display: block;
+			top: 0;
+			width: 100%;
+			/* vertical-align: middle; */
+			overflow: hidden;
+			background-color: #333;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.navbar a {
+			float: left;
+			font-size: 16px;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		.navbar a:hover,
+		.dropdown:hover .dropbtn {
+			background-color: black;
+			/* background-color: #333; */
+		}
+
+		nav a:hover {
+			color: blue;
+			background-color: #cfd8dc
+		}
+
+		nav a:active {
+			color: red;
+		}
+
+		body {
+			background-color: black;
+		}
+
+		.container {
+			color: white;
+			width: 100%;
+			margin-top: 80px;
+			margin-bottom: 0;
+			text-align: center;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+			/* display: inline-block;
+    		vertical-align: middle;
+			overflow: hidden; */
+		}
+
+		.row {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -15px;
+			margin-left: -15px;
+			padding: 0 5px;
+			align-content: center;
+			vertical-align: middle;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.inicio {
+			width: 150px;
+			height: 50px;
+		}
+
+		#logo {
+			width: 100%;
+		}
+
+		.col-sm {
+			position: relative;
+			padding: 15px;
+			width: 100%;
+			min-height: 1px;
+			/* padding-right: 15px; */
+			/* padding-left: 15px */
+		}
+
+		.col-xs {
+			min-width: 250px;
+		}
+
+		@media (min-width: 576px) {
+			.col-sm {
+				-ms-flex-preferred-size: 0;
+				flex-basis: 0;
+				-ms-flex-positive: 1;
+				flex-grow: 1;
+				max-width: 100%
+			}
+		}
+
+		.col {
+			-ms-flex-preferred-size: 0;
+			flex-basis: 0;
+			-ms-flex-positive: 1;
+			flex-grow: 1;
+			max-width: 100%
+		}
+
+		.temp {
+			cursor: pointer;
+			width: 700px;
+			height: 30px;
+		}
+
+		.cap {
+			cursor: pointer;
+			width: 700px;
+			height: 30px;
+			background-color: #2b2b2b;
+		}
+	</style>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<a class="inicio" href="index.html">
+			<img id="logo" alt="Microsoft" src="http://ver.movistarplus.es/img/logo-yomvi-cabecera.png">
+		</a>
+	</div>
+</head>
+
+<body onload="init()">
+	<div class="container">
+	</div>
+	<style>
+		.desc-close {
+			height: 250px;
+			overflow: hidden;
+		}
+
+		.desc-open {
+			height: 100%;
+		}
+
+		.desc div {
+			height: 100%;
+		}
+
+		.masInfo {
+			background-color: #888;
+			padding: 0 5px;
+			border-radius: 3px;
+		}
+
+		a:hover {
+			text-decoration: none;
+		}
+
+		.ver {
+			/* width: 90px; */
+			color: #fff;
+		}
+
+		.btnGreenContainer {
+			background-color: #79b800;
+			/* width: 150px; */
+			height: 50px;
+			box-shadow: none;
+			border: none;
+			-webkit-border-radius: 05px;
+			-moz-border-radius: 05px;
+			border-radius: 05px;
+			margin: 5px 0 0 0;
+			display: block;
+			position: relative;
+		}
+
+		.btnGreyContainer {
+			background-color: grey;
+			/* width: 150px; */
+			height: 50px;
+			box-shadow: none;
+			border: none;
+			-webkit-border-radius: 05px;
+			-moz-border-radius: 05px;
+			border-radius: 05px;
+			margin: 5px 0 0 0;
+			display: block;
+			position: relative;
+		}
+
+		.btnGreyContainerSeries {
+			font-size: 20px;
+			background-color: #999;
+			border-radius: 5px;
+			margin-top: 3px;
+			width: 300px;
+			height: 50px;
+			align-items: center;
+			text-align: justify;
+			vertical-align: middle;
+		}
+
+		.btnGrey {
+			align-content: center;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.textDetUp {
+			font-size: 15px;
+			display: block;
+			color: #999999;
+			text-align: center;
+			margin-top: 0px;
+			height: 22px;
+		}
+
+		.imgDiv {
+			border-radius: 10px;
+		}
+
+		.nivelMoral {
+			width: 20px;
+		}
+
+		span {
+			margin-left: 5px;
+		}
+
+		.info {
+			min-width: 625px;
+			max-width: 1025px;
+		}
+
+		.imgInfo {
+			max-width: 1250px;
+			min-width: 1250px;
+		}
+	</style>
+	<script>
+		var items, section = document.getElementsByClassName('container'), id = window.location.href.split('?id=')[1].split('&title=')[0];
+		var temp, caps, resp, data;
+
+		var CodChnnl = ["TVE", "LA2", "A3", "C4", "T5", "SEXTA", "MV3", "VAMOSD", "CPSER", "MV2", "FOXGE", "AXN", "TNT", "PCM", "CL13",
+						"COSMO", "AMC", "FOXCR", "SET", "SCI-FI", "MTV", "FDFIC", "NEOX", "ATRESS", "ENERGY", "MV1", "CPXTRA", "MDISNE", "CPACCI", "CPCOME",
+						"CPCOLE", "DCESP", "TCM", "HOLLYW", "DARK", "PARCH", "MLIGA", "CHAPIO", "CPDEP", "ARTHUR", "MVF1", "UBEAT", "GOLF+", "ESP", "ESP2",
+						"GOL", "TDEP", "CAZPES", "CFERIA", "NATGEO", "NATGW", "HIST", "DCR", "ODISEA", "VJR", "CYM", "CACOC", "DECASA", "DIVINI", "NOVA",
+						"MEGA", "BEMAD", "BABY", "PLAYDC", "PANDA", "NICKJR", "NICK", "DCHXD", "DCH", "BOING", "CLANTV", "VH1", "MEZZO", "MEZZLI", "CLASSD",
+						"24H", "INTECO", "ANTV", "TVG", "EXTREM", "TVC", "ETB", "ARAGON", "DISNEY"];
+
+		var NumChnnl = ["4521", "4522", "4523", "4524", "4525", "4526", "4497", "4767", "4498", "4527", "4528", "4529", "4530", "4531", "4532",
+						"4533", "4520", "4534", "4535", "4536", "4499", "4537", "4538", "4539", "4540", "4501", "4541", "4600", "4542", "4573",
+						"4576", "4502", "4603", "4780", "4583", "4586", "4882", "4594", "4592", "4585", "4608", "4886", "4584", "4605", "4580",
+						"4577", "4504", "4606", "4505", "4604", "4610", "4543", "4545", "4547", "4549", "4552", "4506", "4602", "4507", "4601",
+						"4558", "4560", "4508", "4509", "4510", "4511", "4512", "4513", "4599", "4563", "4611", "4567", "4571", "MEZZLI", "4612",
+						"4544", "4893", "4764", "4548", "4614", "4555", "4557", "4615", "4903"];
+
+
+		function init() {
+			$('.col-sm').remove();
+			$.get('https://ottcache.dof6.com/movistarplus/webplayer/contents/' + id + '/details?mediaType=FOTOV&profile=OTT&mode=VODRU7D&version=3', function (data) {
+				items = data;
+				// console.log( data.Trailers.hasOwnProperty("0") )
+				if (data.TipoContenido == 'Serie') {
+					temp = data.Temporadas;
+					$(document).attr("title", data.TituloSerie);
+
+					if (data.Trailers.hasOwnProperty("0")) {
+						$('<div class="row imgInfo"><div class="col-xs"><img class="imgDiv" src="' + data.Imagenes[0].uri + '">'
+							+ '</div><div class="col-sm info"><div class="row"><div class="col-xs" style="padding: 0 0 0 75px;"><h2>'
+							+ data.TituloSerie + '</h2></div></div><div class="row moral" style="margin-left: 0; padding: 0 70px; align-items: center;">'
+							+ '<img class="nivelMoral" src="' + data.NivelMoral.Logo + '"><span> | ' + data.Genero.ComAntena + ' | </span><span>'
+							+ data.Nacionalidad + ' </span><span> | ' + Math.floor(parseInt(data.Duracion)/60) + 'h ' + (parseInt(data.Duracion)%60) 
+							+ 'min</span></div><br><div class="row" style="margin-left: 0; padding: 0 70px;">'
+							+ '<div class="col-xs desc" style="text-align: justify;"><div>' + data.Descripcion
+							+ '</div></div><br><div class="masInfo" style="cursor: pointer;" onclick="moreInfo()"><span></span></div></div></div></div></div>'
+							+ '      <div class="row"><div class="col-sm" style="max-width: 380px;">'
+
+							+ '<div class="row btnGreyContainerSeries"><a href="videoPlayer.html?url=' + data.Trailers[0].uri + '&title=Trailer: '
+							+ data.Titulo + '"><div class="row btnGrey" id="play_pase_btn">'
+							+ '<div class="col-sm"><p class="ver">VER TRAILER</p></div></div></a></div>'
+
+							+ '<div class="row subtitulo">Emisión</div><div class="row text">' + data.VodItems[0].Cadena.Nombre + '</div><div class="row subtitulo">'
+							+ data.Anno + '</div><div class="row subtitulo dropdown">Reparto</div><div class="row text">' + data.Actores
+							+ '</div><div class="row subtitulo">' + 'Dirección</div><div class="row text">' + data.Directores
+							+ '</div><div class="row subtitulo">Nacionalidad</div><div class="row text">'
+							+ data.Nacionalidad + '</div><div class="row subtitulo">Genero</div><div class="row text">'
+							+ data.Genero.ComAntena + '</div></div>' + '<div class="col-sm tempCap" style="align-content: center;"></div>').appendTo(section);
+					}
+					else {
+						$('<div class="row imgInfo"><div class="col-xs"><img class="imgDiv" src="' + data.Imagenes[0].uri + '">'
+							+ '</div><div class="col-sm info"><div class="row"><div class="col-xs" style="padding: 0 0 0 75px;"><h2>'
+							+ data.TituloSerie + '</h2></div></div><div class="row moral" style="margin-left: 0; padding: 0 70px; align-items: center;">'
+							+ '<img class="nivelMoral" src="' + data.NivelMoral.Logo + '"><span> | ' + data.Genero.ComAntena + ' | </span><span>'
+							+ data.Nacionalidad + ' </span><span> | ' + Math.floor(parseInt(data.Duracion)/60) + 'h ' + (parseInt(data.Duracion)%60) 
+							+ 'min</span></div><br><div class="row" style="margin-left: 0; padding: 0 70px;">'
+							+ '<div class="col-xs desc" style="text-align: justify;"><div>' + data.Descripcion
+							+ '</div></div><br><div class="masInfo" style="cursor: pointer;" onclick="moreInfo()"><span></span></div></div></div></div></div>'
+							+ '      <div class="row"><div class="col-sm" style="max-width: 380px;"><div class="row subtitulo">'
+							+ data.Anno + '</div><div class="row subtitulo dropdown">Reparto</div><div class="row text">' + data.Actores
+							+ '</div><div class="row subtitulo">' + 'Dirección</div><div class="row text">' + data.Directores
+							+ '</div><div class="row subtitulo">Nacionalidad</div><div class="row text">'
+							+ data.Nacionalidad + '</div><div class="row subtitulo">Genero</div><div class="row text">'
+							+ data.Genero.ComAntena + '</div></div>' + '<div class="col-sm tempCap" style="align-content: center;"></div>').appendTo(section);
+					}
+
+					for (let i = 0; i < temp.length; i++) {
+						// console.log()
+						$.get('https://ottcache.dof6.com/movistarplus/webplayer/contents/' + temp[i].Id 
+							+ '/details?mediaType=FOTOV&profile=OTT&mode=VODRU7D&version=3', function (resp) {
+
+							$('<div class="row subtitulo temp" onclick="showHide()" id="' + i + '" style="cursor: pointer;">' + resp.Temporadas[i].Titulo + '</div>'
+								+ '<div class="col-xs caps" id="temp' + i + '"></div>').appendTo($('.tempCap'))
+
+							for (let j = 0; j < resp.Episodios.length; j++) {
+
+								if ( (resp.Episodios[j].VodItems.length > 0) && resp.Episodios[j].VodItems[0].UrlVideo.includes("cutv") ) {
+									str = resp.Episodios[j].VodItems[0].Cadena.CodCadenaTv;
+									inicio = new Date(parseInt(resp.Episodios[j].VodItems[0].FechaEmision));
+									final = new Date(parseInt(resp.Episodios[j].VodItems[0].FechaEmision)
+										+ parseInt(((resp.Episodios[j].DatosEditoriales.Duracion * 60) + (20 * 60)) * 1000));
+
+									if (CodChnnl.some(v => str.includes(v))) {
+
+										urlVideo = 'http://cutv-wp0.cdn.telefonica.com/' + NumChnnl[CodChnnl.indexOf(str)]
+											+ '/vxfmt=dp/index.ism/Manifest?device_profile=MSS_WPC_DRM'
+											+ '&start_time=' + inicio.toISOString().replace(/\.[0-9]{3}/, '')
+											+ '&end_time=' + final.toISOString().replace(/\.[0-9]{3}/, '');
+
+									}
+
+									$('<span class="textDetUp">'
+										+ new Date(parseInt(resp.Episodios[j].VodItems[0].FechaEmision)).MMSSmmm() + ' - '
+										+ new Date(parseInt(resp.Episodios[j].VodItems[0].FechaEmision)).HHMMSSmmm() + '</span>'
+										+ '<div class="btnGreenContainer"><a href="videoPlayer.html?url=' + urlVideo + '&title=' 
+										+ resp.Episodios[j].DatosEditoriales.Titulo + '"><div class="row btnGrey" id="play_pase_btn">'
+										+ '<div class="col-sm"><p class="ver">VER AHORA</p></div></div></a></div>').appendTo(document.getElementsByClassName('buttonBox'))
+
+								} else {
+
+									$('<div class="row text cap"><a href="videoPlayer.html?url=' + resp.Episodios[j].VodItems[0].UrlVideo + '&title='
+									+ resp.Episodios[j].DatosEditoriales.TituloSerie + ' - ' + resp.Episodios[j].DatosEditoriales.TituloEpisodio + '">'
+									+ resp.Episodios[j].DatosEditoriales.TituloEpisodio + '</div>').appendTo($('#temp' + i))
+								}
+							}
+						})
+					}
+				}
+				else if (data.TipoContenido == 'Individual') {
+					$(document).attr("title", data.Titulo);
+					$('<div class="row imgInfo"><div class="col-xs"><img class="imgDiv" src="' + data.Imagenes[0].uri + '">'
+						+ '</div><div class="col-sm info"><div class="row"><div class="col-xs" style="padding: 0 0 0 75px;"><h2>'
+						+ data.Titulo + '</h2></div></div><div class="row moral" style="margin-left: 0; padding: 0 70px; align-items: center;">'
+						+ '<img class="nivelMoral" src="' + data.NivelMoral.Logo + '"><span> | ' + data.Genero.ComAntena + ' | </span><span>'
+						+ data.Nacionalidad + ' </span><span> | ' + Math.floor(parseInt(data.Duracion)/60) + 'h ' + (parseInt(data.Duracion)%60) 
+						+ 'min</span></div><br><div class="row" style="margin-left: 0; padding: 0 70px;">'
+						+ '<div class="col-xs desc" style="text-align: justify;"><div>' + data.Descripcion
+						+ '</div></div><br><div class="masInfo" style="cursor: pointer;" onclick="moreInfo()"><span></span></div></div></div></div></div>'
+						+ '<div class="row"><div class="col-sm" style="max-width: 380px;"><div class="row subtitulo">Emisión: </div><div class="row text">'
+						+ data.VodItems[0].Cadena.Nombre + ' - ' + new Date(parseInt(data.VodItems[0].FechaEmision)).toLocaleString() + '</div><div class="row subtitulo">'
+						+ data.Anno + '</div><div class="row subtitulo dropdown">Reparto</div><div class="row text">' + data.Actores
+						+ '</div><div class="row subtitulo">' + 'Dirección</div><div class="row text">' + data.Directores
+						+ '</div><div class="row subtitulo">Nacionalidad</div><div class="row text">'
+						+ data.Nacionalidad + '</div><div class="row subtitulo">Genero</div><div class="row text">'
+						+ data.Genero.ComAntena + '</div></div>' + '<div class="buttonBox"></div>').appendTo(section);
+
+					if (data.VodItems[0].UrlVideo.includes("cutv")) {
+						str = data.VodItems[0].Cadena.CodCadenaTv;
+						inicio = new Date(parseInt(data.VodItems[0].FechaEmision));
+						final = new Date(parseInt(data.VodItems[0].FechaEmision)
+							+ parseInt(((data.Duracion * 60) + (20 * 60)) * 1000));
+
+						if (CodChnnl.some(v => str.includes(v))) {
+
+							urlVideo = 'http://cutv-wp0.cdn.telefonica.com/' + NumChnnl[CodChnnl.indexOf(str)]
+								+ '/vxfmt=dp/index.ism/Manifest?device_profile=MSS_WPC_DRM'
+								+ '&start_time=' + inicio.toISOString().replace(/\.[0-9]{3}/, '')
+								+ '&end_time=' + final.toISOString().replace(/\.[0-9]{3}/, '');
+
+						}
+
+						if (data.Trailers.hasOwnProperty("0")) {
+							$('<span class="textDetUp">'
+								+ new Date(parseInt(data.VodItems[0].FechaEmision)).MMSSmmm() + ' - '
+								+ new Date(parseInt(data.VodItems[0].FechaEmision)).HHMMSSmmm() + '</span>'
+								+ '<div class="btnGreenContainer"><a href="videoPlayer.html?url=' + urlVideo + '&title=' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER AHORA</p></div></div></a></div><br>'
+								+ '<div class="btnGreyContainer"><a href="videoPlayer.html?url=' + data.Trailers[0].uri + '&title=Trailer: ' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER TRAILER</p></div></div></a></div>').appendTo(document.getElementsByClassName('buttonBox'))
+						} else {
+							$('<span class="textDetUp">'
+								+ new Date(parseInt(data.VodItems[0].FechaEmision)).MMSSmmm() + ' - '
+								+ new Date(parseInt(data.VodItems[0].FechaEmision)).HHMMSSmmm() + '</span>'
+								+ '<div class="btnGreenContainer"><a href="videoPlayer.html?url=' + urlVideo + '&title=' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER AHORA</p></div></div></a></div>').appendTo(document.getElementsByClassName('buttonBox'))
+						}
+
+					} else {
+
+						if (data.Trailers.hasOwnProperty("0")) {
+							$('<span class="textDetUp"> En cartelera hasta: '
+								+ new Date(parseInt(data.DatosAccesoAnonimo.FechaFinPublicacion)).MMSSmmm() + '</span>'
+								+ '<div class="btnGreenContainer"><a href="videoPlayer.html?url=' + data.VodItems[0].UrlVideo + '&title=' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER AHORA</p></div></div></a></div><br>'
+								+ '<div class="btnGreyContainer"><a href="videoPlayer.html?url=' + data.Trailers[0].uri + '&title=Trailer: ' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER TRAILER</p></div></div></a></div>').appendTo(document.getElementsByClassName('buttonBox'))
+						} else {
+							$('<span class="textDetUp"> En cartelera hasta: '
+								+ new Date(parseInt(data.DatosAccesoAnonimo.FechaFinPublicacion)).MMSSmmm() + '</span>'
+								+ '<div class="btnGreenContainer"><a href="videoPlayer.html?url=' + data.VodItems[0].UrlVideo + '&title=' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER AHORA</p></div></div></a></div>').appendTo(document.getElementsByClassName('buttonBox'))
+						}
+					}
+				}
+				else if (data.TipoContenido == 'Episodio') {
+					$(document).attr("title", data.Titulo);
+					$('<div class="row imgInfo"><div class="col-xs"><img class="imgDiv" src="' + data.Imagenes[0].uri + '">'
+						+ '</div><div class="col-sm info"><div class="row"><div class="col-xs" style="padding: 0 0 0 75px;"><h2>'
+						+ data.Titulo + '</h2></div></div><div class="row moral" style="margin-left: 0; padding: 0 70px; align-items: center;">'
+						+ '<img class="nivelMoral" src="' + data.NivelMoral.Logo + '"><span> | ' + data.Genero.ComAntena + ' | </span><span>'
+						+ data.Nacionalidad + ' </span><span> | ' + Math.floor(parseInt(data.Duracion)/60) + 'h ' + (parseInt(data.Duracion)%60) 
+						+ 'min</span></div><br><div class="row" style="margin-left: 0; padding: 0 70px;">'
+						+ '<div class="col-xs desc" style="text-align: justify;"><div>' + data.Descripcion
+						+ '</div></div><br><div class="masInfo" style="cursor: pointer;" onclick="moreInfo()"><span></span></div></div></div></div></div>'
+						+ '      <div class="row"><div class="col-sm" style="max-width: 380px;"><div class="row subtitulo">Emisión: </div><div class="row text">' 
+						+ data.VodItems[0].Cadena.Nombre + ' - ' + new Date(parseInt(data.VodItems[0].FechaEmision)).toLocaleString() + '</div><div class="row subtitulo">'
+						+ data.Anno + '</div><div class="row subtitulo dropdown">Reparto</div><div class="row text">' + data.Actores
+						+ '</div><div class="row subtitulo">' + 'Dirección</div><div class="row text">' + data.Directores
+						+ '</div><div class="row subtitulo">Nacionalidad</div><div class="row text">'
+						+ data.Nacionalidad + '</div><div class="row subtitulo">Genero</div><div class="row text">'
+						+ data.Genero.ComAntena + '</div></div>' + '<div class="buttonBox"></div>').appendTo(section);
+
+					if (data.VodItems[0].UrlVideo.includes("cutv")) {
+						str = data.VodItems[0].Cadena.CodCadenaTv;
+						inicio = new Date(parseInt(data.VodItems[0].FechaEmision));
+						final = new Date(parseInt(data.VodItems[0].FechaEmision)
+							+ parseInt(((data.Duracion * 60) + (20 * 60)) * 1000));
+
+						if (CodChnnl.some(v => str.includes(v))) {
+
+							urlVideo = 'http://cutv-wp0.cdn.telefonica.com/' + NumChnnl[CodChnnl.indexOf(str)]
+								+ '/vxfmt=dp/index.ism/Manifest?device_profile=MSS_WPC_DRM'
+								+ '&start_time=' + inicio.toISOString().replace(/\.[0-9]{3}/, '')
+								+ '&end_time=' + final.toISOString().replace(/\.[0-9]{3}/, '');
+
+						}
+
+						if (data.Trailers.hasOwnProperty("0")) {
+							$('<span class="textDetUp">'
+								+ new Date(parseInt(data.VodItems[0].FechaEmision)).MMSSmmm() + ' - '
+								+ new Date(parseInt(data.VodItems[0].FechaEmision)).HHMMSSmmm() + '</span>'
+								+ '<div class="btnGreenContainer"><a href="videoPlayer.html?url=' + urlVideo + '&title=' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER AHORA</p></div></div></a></div><br>'
+								+ '<div class="btnGreyContainer"><a href="videoPlayer.html?url=' + data.Trailers[0].uri + '&title=Trailer: ' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER TRAILER</p></div></div></a></div>').appendTo(document.getElementsByClassName('buttonBox'))
+						} else {
+							$('<span class="textDetUp">'
+								+ new Date(parseInt(data.VodItems[0].FechaEmision)).MMSSmmm() + ' - '
+								+ new Date(parseInt(data.VodItems[0].FechaEmision)).HHMMSSmmm() + '</span>'
+								+ '<div class="btnGreenContainer"><a href="videoPlayer.html?url=' + urlVideo + '&title=' + data.Titulo
+								+ '"><div class="row btnGrey" id="play_pase_btn">'
+								+ '<div class="col-sm"><p class="ver">VER AHORA</p></div></div></a></div>').appendTo(document.getElementsByClassName('buttonBox'))
+						}
+					}
+				}
+
+				$('.masInfo span').text('+info');
+				$(document).attr("title", data.TituloSerie);
+
+				setTimeout(function () {
+					$('.caps').hide();
+					moreInfo();
+				}, 100);
+			});
+		}
+
+		Date.prototype.HHMMSSmmm = function () {
+
+			var h = this.getHours().toString(),
+				m = this.getMinutes().toString(),
+				s = this.getSeconds().toString(),
+				HH = h[1] ? h : "0" + h[0],
+				MM = m[1] ? m : "0" + m[0];
+
+			return HH + ":" + MM;
+		};
+
+		Date.prototype.MMSSmmm = function () {
+
+			var d = this.getDate().toString(),
+				m = this.getMonth().toString(),
+				y = this.getFullYear().toString(),
+				dd = d[1] ? d : "0" + d[0],
+				mm = m[1] ? m : "0" + (parseInt(m[0]) + 1),
+				yyyy = y[2] ? y : "0" + (y[1] ? y : "0" + y[0]);
+			// console.log(m[1])
+			return dd + "/" + mm + "/" + yyyy;
+		};
+
+		function moreInfo() {
+
+			if ($('desc').width() <= 250) {
+
+				$(".desc").toggleClass("desc-open");
+				$('.masInfo span').text('Cerrar');
+				// $('.masInfo').hide()
+
+			} else {
+
+				$(".desc").toggleClass("desc-close");
+				$('.masInfo span').text('+info');
+
+			}
+
+		}
+
+		function showHide() {
+
+			$('.caps').hide();
+			console.log('showHide()')
+			$('.temp').click(function () {
+				$('.caps').hide();
+				$('#temp' + $(this).attr('id')).show();
+			});
+
+		};
+
+	</script>
+
+</body>
+
+</html>

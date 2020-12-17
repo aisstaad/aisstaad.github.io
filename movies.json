@@ -1,0 +1,19 @@
+[
+    {
+        "name": "Misión Imposible: Protocolo Fantasma",
+        "data": [
+            {
+                "currentTime": 205
+            }
+        ]
+    }
+]
+
+
+// python mp4-dash.py --encryption-key={KID}:{encryption KEY} --playready-header=LA_URL:{http://playready.directtaps.net/pr/svc/rightsmanager.asmx} video-source.mp4
+
+// mp4dash --encryption-key=09e367028f33436ca5dd60ffe6671e70:b42ca3172ee4e69bf51848a59db9cd13 --playready-header=LA_URL:http://playready.directtaps.net/pr/svc/rightsmanager.asmx video-source.mp4
+
+// python mp4-dash.py --encryption-key=09e367028f33436ca5dd60ffe6671e70:b42ca3172ee4e69bf51848a59db9cd13 --playready-header=LA_URL:http://playready.directtaps.net/pr/svc/rightsmanager.asmx video-source.mp4
+
+// http://nrdp.nccp.netflix.com/rmsdk/rightsmanager.asmx

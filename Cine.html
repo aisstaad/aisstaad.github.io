@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<title>Cine - Movistar+</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<style>
+		.navbar {
+			z-index: 1;
+			position: fixed;
+			display: block;
+			top: 0;
+			width: 100%;
+			overflow: hidden;
+			background-color: #333;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.navbar a {
+			width: 150px;
+			height: 50px;
+			float: left;
+			font-size: 16px;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		.navbar a:hover {
+			background-color: black;
+		}
+
+		body {
+			background-color: black;
+		}
+
+		.container {
+			width: 90%;
+			margin-top: 80px;
+			margin-bottom: 0;
+			text-align: center;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto
+		}
+
+		.row {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -15px;
+			margin-left: -15px
+		}
+
+		#logo {
+			width: 100%;
+		}
+
+		.col-sm {
+			position: relative;
+			padding: 15px;
+			width: 100%;
+			min-height: 1px;
+			/* padding-right: 15px; */
+			/* padding-left: 15px */
+		}
+
+		@media (min-width: 576px) {
+			.col-sm {
+				-ms-flex-preferred-size: 0;
+				flex-basis: 0;
+				-ms-flex-positive: 1;
+				flex-grow: 1;
+				max-width: 100%
+			}
+		}
+
+		.col {
+			-ms-flex-preferred-size: 0;
+			flex-basis: 0;
+			-ms-flex-positive: 1;
+			flex-grow: 1;
+			max-width: 100%
+		}
+
+		#title {
+			color: white;
+			border-color: black;
+		}
+
+		.right-header {
+			margin-top: 5px;
+			margin-right: 10px;
+			float: right;
+			margin-top: 5px;
+			margin-bottom: 0px;
+		}
+
+		#search {
+			height: 80%;
+			vertical-align: center;
+		}
+
+		.form-wrapper #search {
+			width: 80%;
+			font-family: 'Arial', 'trebuchet MS', 'Tahoma';
+			border: 0;
+			background: transparent;
+			color: #fff;
+			font-size: 18px;
+		}
+
+		.portada_buscar span img {
+			margin: 10px;
+			float: right;
+		}
+
+		.portada_buscar {
+			height: 40px;
+			width: 100%;
+			background: #222;
+			padding-left: 10px;
+			border: 1px solid #666;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+		}
+
+		.tooltip {
+			/* position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black; */
+			/* position: absolute; */
+			z-index: 1070;
+			display: block;
+			margin: 0;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+			font-style: normal;
+			font-weight: 400;
+			line-height: 1.5;
+			text-align: left;
+			text-align: start;
+			text-decoration: none;
+			text-shadow: none;
+			text-transform: none;
+			letter-spacing: normal;
+			word-break: normal;
+			word-spacing: normal;
+			white-space: normal;
+			line-break: auto;
+			font-size: .875rem;
+			word-wrap: break-word;
+			/* opacity: 0 */
+		}
+
+		.tiptext {
+			visibility: hidden;
+			width: 80%;
+			background-color: rgb(80, 77, 77);
+			color: white;
+			text-align: left;
+			border-radius: 3px;
+			padding: 6px 0;
+			position: absolute;
+			z-index: 1;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.tooltip .tiptext::after {
+			/* content: ""; */
+			position: relative;
+			border-width: 5px;
+			border-style: solid;
+		}
+
+		.tooltip:hover .tiptext {
+			visibility: visible;
+		}
+
+		#poster {
+			border-radius: 5px;
+		}
+
+	</style>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<a href="index.html">
+			<img id="logo" alt="Microsoft" src="http://ver.movistarplus.es/img/logo-yomvi-cabecera.png">
+		</a>
+	</div>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="row" id="items"></div>
+	</div>
+	<script>
+
+		var items, section = document.getElementById('items'), count = document.getElementById('count'), j = 1, k = 99;
+
+		$(document).ready(function () {
+			init();
+			$(document).scroll(function () {
+				if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
+					// console.log('Has llegado al final de la pagina!')
+					j += 100;
+					k += 100;
+					// console.log('j=' + j + ', k=' + k)
+					getContent(j, k)
+				}
+			})
+		});
+
+		function getContent(j, k) {
+			$.get('https://ottcache.dof6.com/movistarplus/webplayer/contents/browse?profile=OTT&sort=AZ&version=3&start='
+				+ j.toString() + '&end=' + k.toString() + '&filter=&mode=VOD&topic=CN', function (data) {
+
+					for (let i = 0; i < data.count; i++) {
+						
+						// Guardo una copia de como lo tenia antes por si quiero volver atras algun dia
+						
+						/* $('<div class="col-sm"><a href="videoPlayer.html?url=' + data.Contenidos[i].VodItems[0].UrlVideo + '&title=' + data.Contenidos[i].DatosEditoriales.Titulo
+							+ '"><div class="tooltip bootom"><div><img id="poster" src="' + data.Contenidos[i].DatosEditoriales.Imagenes[0].uri
+							+ '" onmouseover="" style="cursor: pointer;"><div id="title">' + data.Contenidos[i].DatosEditoriales.Titulo
+							+ '</div></div><span class="tiptext">Valoracion: ' + data.Contenidos[i].DatosEditoriales.Valoracion.Valoracion + '</span></div></a></div>').appendTo(section); */
+
+						$('<div class="col-sm"><a href="ficha.html?id=' + data.Contenidos[i].DatosEditoriales.Id + '&title=' 
+						+ data.Contenidos[i].DatosEditoriales.Titulo + '"><div class="tooltip bootom"><div><img id="poster" src="' 
+						+ data.Contenidos[i].DatosEditoriales.Imagenes[0].uri + '" onmouseover="" style="cursor: pointer;"><div id="title">' 
+						+ data.Contenidos[i].DatosEditoriales.Titulo + '</div></div><span class="tiptext">Valoracion: ' 
+						+ data.Contenidos[i].DatosEditoriales.Valoracion.Valoracion + '</span></div></a></div>').appendTo(section);
+					}
+
+				})
+		}
+
+		function init() {
+			$('.col-sm').remove();
+			getContent(j, k)
+		}
+
+	</script>
+
+</body>
+
+</html>

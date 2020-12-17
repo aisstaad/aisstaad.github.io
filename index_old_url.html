@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<title>Movistar+ by Aisstaad</title>
+	<link href="http://playready.azurewebsites.net/Content/css?v=2NETwO15mrTCXwEplwqH--QLRu1yF0I3ZTaKqOevcuA1"
+		rel="stylesheet" />
+	<script
+		src="http://playready.azurewebsites.net/bundles/modernizr?v=w9fZKPSiHtN4N4FRqV7jn-3kGoQY5hHpkwFv5TfMrus1"></script>
+	<!-- <script src="http://www.gstatic.com/cast/sdk/libs/mediaplayer/1.0.0/media_player.js"></script> -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick-theme.css" />
+	<script src="http://orange-opensource.github.io/hasplayer.js/1.15.1/hasplayer.min.js"></script>
+	<!-- <script src="hasplayer17.js"></script> -->
+	<!-- <script src="hasplayer.1.10.0.js"></script> -->
+	<style type="text/css">
+		object {
+			/* Dash */
+			/* width: 1024px;
+				height: 576px; */
+			/* SilverlightPlayer */
+			/* width: 1045px;
+				height: 795px; */
+			/* Standard */
+			/* width: 100%;
+			height: 100%; */
+			/* Full HD */
+			width: 1280px;
+			height: 720px;
+			/* width: 1800px;
+			height: 920px; */
+			margin-top: 5px;
+		}
+
+		input {
+			width: 100%;
+		}
+
+		#navigatoor {
+			width: 100%;
+			margin: 0 auto;
+			display: inline-flex;
+			/* align-items: center; */
+		}
+
+		body {
+			padding-top: 25px;
+			padding-bottom: 15px;
+			text-rendering: optimizeLegibility;
+			color: #505050;
+			background-color: #2f2f2f;
+		}
+
+		#silverlightControlHost {
+			width: 100%;
+			height: 100%;
+			text-align: center;
+		}
+
+		#content {
+			color: gray;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- <div style="margin-top: -24px;">
+		<div id=navigatoor>
+			<input type="text" id="laURL"
+				value="http://cutv-wp0.cdn.telefonica.com/4529/vxfmt=dp/index.ism/Manifest?device_profile=MSS_WPC_DRM&start_time=2020-08-10T13:47:00Z&end_time=2020-08-10T17:47:00Z">
+			<button id="playBtn">Play</button>
+		</div>
+	</div> -->
+
+	<!-- <div class="navbar navbar-inverse navbar-fixed-top">
+			<a href="index_old.html">
+				<!- - <img id="logo" alt="Microsoft" src="http://ver.movistarplus.es/img/logo-yomvi-cabecera.png"> -- >
+				<img id="logo" alt="Microsoft" src="http://ver.movistarplus.es/img/logo-mvstr-footer.png">
+			</a>
+		</div>
+		<div>
+			<section class="center slider"></section>
+		</div> -->
+
+	<div class="container body-content" id="content" style="margin-top:1px;">
+		<script type="text/javascript">
+			var slCtl;
+			function pluginLoaded(sender, args) {
+				slCtl = sender.getHost();
+				refreshSLSource();
+			}
+		</script>
+		<div class="videoContent" style="background-color: black;">
+			<form id="form1" runat="server">
+				<div id="silverlightControlHost">
+					<object id="object" data="data:application/x-silverlight-2," type="application/x-silverlight-2">
+						<param name="source" value="Dash.xap" />
+						<!-- <param name="source" value="SilverlightPlayer.xap" /> -->
+						<!-- <param name="source" value="SmoothStreamingPlayer.xap" /> -->
+						<param name="onError" value="onSilverlightError" />
+						<param name="onLoad" value="pluginLoaded" />
+						<param name="background" value="black" />
+						<param name="minRuntimeVersion" value="5.0.61118.0" />
+						<param name="autoUpgrade" value="true" />
+						<!-- <param name="InitParams" value="Autoplay=true,ScriptableName=mainPlayer,IsControlStripVisible=false"> -->
+						<!-- <param name="InitParams" value="mediaurl=http://estrenos-pry-movistarplus.emisiondof6.com/ss/estrenos.isml/Manifest,Autoplay=true,IsControlStripVisible=true" /> -->
+					</object>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		var useSL = true, type = 'SL', selectedColor = "#72964e", defaultColor = "white"; //"#424d38";
+		var video, context, player, manifest, laurl, protData;
+
+		function initPlayer() {
+
+			// player = new MediaPlayer();
+			player = new MediaPlayer(new MediaPlayer.di.Context());
+			player.startup();
+			player.attachView(video);
+			player.setAutoPlay(true);
+			// player.init(video);
+			// player.setAutoPlay(true);
+			player.setAutoSwitchQuality(true)
+			player.setDefaultAudioLang('spa');
+		}
+
+		function playSelectedStream(link) {
+			manifest = link;
+			laurl = 'http://test.playready.microsoft.com/service/rightsmanager.asmx'.trim()
+
+			if (useSL) {
+
+				if (slCtl != null) {
+					slCtl.Content.slVideoPlayer.SetVideo(manifest, laurl);
+				}
+				silverlightControlHost.style.display = "block";
+				slCtl.Content.slVideoPlayer.StopVideo();
+				// video = document.getElementById("videoPlayer");
+				var protectionData = new MediaPlayer.vo.protection.ProtectionData(laurl, null, null);
+				protData = { 'com.microsoft.playready': protectionData };
+				stream = {
+					url: manifest,
+					protData: protData
+				};
+				// player = new MediaPlayer(new MediaPlayer.di.Context());
+				// player.setDefaultAudioLang('spa');
+				// player.startup();
+				// player.attachView(video);
+				// player.setAutoPlay(true);
+				player.attachSource(manifest, protData, null);
+				player.addEventListener("play_bitrate", onPlayBitrateChanged);
+				silverlightControlHost.style.display = "none";
+			}
+		}
+
+		function launchPlayer(manifest) {
+			laurl = 'http://test.playready.microsoft.com/service/rightsmanager.asmx'.trim();
+			/* protectionData = new MediaPlayer.vo.protection.ProtectionData(laurl, null, null);
+			protData = { 'com.microsoft.playready': protectionData };
+			stream = {
+				url: manifest,
+				protData: protData
+			}; */
+
+			protData = {
+				// one entry for each key system ('com.microsoft.playready' or 'com.widevine.alpha')
+				"com.microsoft.playready": {
+					laURL: laurl,
+					// audioRobustness: "SW_SECURE_CRYPTO", // Considered for Widevine key system only
+					// videoRobustness: "SW_SECURE_DECODE" // Considered for Widevine key system only
+				}
+			}
+			stream = {
+				url: manifest,
+				protData: protData
+			};
+
+			player.load(stream);
+			player.addEventListener("play_bitrate", onPlayBitrateChanged);
+			// initBar();
+			// $('.channelName').html(decodeURIComponent(window.location.href.split('&title=')[1].split('&id=')[0]))
+			// video.volume = vol;
+			// $('.slider-color').val(vol * 100);
+		}
+
+		function refreshSLSource() {
+			if (slCtl != null && typeof (manifest) != "undefined") {
+				slCtl.Content.slVideoPlayer.SetVideo(manifest, laurl);
+			}
+		}
+
+		function onPlayBitrateChanged(e) {
+			handlePlayBitrate(e.detail.bitrate, e.detail.time);
+		};
+
+		/* $('#playBtn').click(function () {
+			playSelectedStream($('#laURL').val())
+			// launchPlayer($('#laURL').val())
+		}) */
+
+		$(document).ready(function () {
+
+			initPlayer();
+			playSelectedStream(window.location.href.split('?url=')[1])
+
+		});
+
+	</script>
+
+</body>
+
+</html>

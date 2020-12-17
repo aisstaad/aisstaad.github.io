@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Guia TV - Movistar+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://ver.movistarplus.es/css/main_min_css.php?m=1585209778">
+    <link rel="stylesheet" href="http://ver.movistarplus.es/css/DTHTITULAR-GRAFICOS.css?m=1585209778">
+    <link rel="stylesheet" href="http://ver.movistarplus.es/css/header.css?m=1585209778">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick-theme.css" />
+    <style>
+        body {
+            background-color: black;
+        }
+
+        .center {
+            top: 10px;
+        }
+
+        .marcador {
+            left: 505px;
+            width: 1px;
+            height: 100%;
+            background: #f5ba0c;
+            position: absolute;
+            z-index: 2998;
+            margin-top: 0px;
+        }
+
+        @media (max-width: 1280px) {
+            .h-scaffolding .center {
+                width: 850px;
+                margin: 0 auto;
+            }
+        }
+
+        .slick-slide {
+            width: 50px;
+        }
+
+        .slick-active {
+            width: 50px;
+        }
+
+        #spinner-total {
+            z-index: 9999;
+        }
+
+        .fondo-blanco {
+            display: block;
+            top: 0;
+        }
+
+        .alerta-browser.alerta-descarga {
+            padding: 350px;
+            margin: 0 0 0 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="h-scaffolding guia" id="portada_guia">
+
+        <div class="barra_hora">
+            <div id="slider-vertical2" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 250px;"></span>
+            </div>
+        </div>
+
+        <div class="epg_container_horas">
+            <div id="fecha">{Fecha}</div>
+            <div id="fondo_horas">
+                <div id="horas">
+                    <ul class="digito center slider">
+                        <li class="marktime" style="width:75px;" data-time="00:00" data-position="">00:00</li>
+                        <li class="marktime" style="width:75px;" data-time="00:15" data-position="">00:15</li>
+                        <li class="marktime" style="width:75px;" data-time="00:30" data-position="">00:30</li>
+                        <li class="marktime" style="width:75px;" data-time="00:45" data-position="">00:45</li>
+                        <li class="marktime" style="width:75px;" data-time="01:00" data-position="">01:00</li>
+                        <li class="marktime" style="width:75px;" data-time="01:15" data-position="">01:15</li>
+                        <li class="marktime" style="width:75px;" data-time="01:30" data-position="">01:30</li>
+                        <li class="marktime" style="width:75px;" data-time="01:45" data-position="">01:45</li>
+                        <li class="marktime" style="width:75px;" data-time="02:00" data-position="">02:00</li>
+                        <li class="marktime" style="width:75px;" data-time="02:15" data-position="">02:15</li>
+                        <li class="marktime" style="width:75px;" data-time="02:30" data-position="">02:30</li>
+                        <li class="marktime" style="width:75px;" data-time="02:45" data-position="">02:45</li>
+                        <li class="marktime" style="width:75px;" data-time="03:00" data-position="">03:00</li>
+                        <li class="marktime" style="width:75px;" data-time="03:15" data-position="">03:15</li>
+                        <li class="marktime" style="width:75px;" data-time="03:30" data-position="">03:30</li>
+                        <li class="marktime" style="width:75px;" data-time="03:45" data-position="">03:45</li>
+                        <li class="marktime" style="width:75px;" data-time="04:00" data-position="">04:00</li>
+                        <li class="marktime" style="width:75px;" data-time="04:15" data-position="">04:15</li>
+                        <li class="marktime" style="width:75px;" data-time="04:30" data-position="">04:30</li>
+                        <li class="marktime" style="width:75px;" data-time="04:45" data-position="">04:45</li>
+                        <li class="marktime" style="width:75px;" data-time="05:00" data-position="">05:00</li>
+                        <li class="marktime" style="width:75px;" data-time="05:15" data-position="">05:15</li>
+                        <li class="marktime" style="width:75px;" data-time="05:30" data-position="">05:30</li>
+                        <li class="marktime" style="width:75px;" data-time="05:45" data-position="">05:45</li>
+                        <li class="marktime" style="width:75px;" data-time="06:00" data-position="">06:00</li>
+                        <li class="marktime" style="width:75px;" data-time="06:15" data-position="">06:15</li>
+                        <li class="marktime" style="width:75px;" data-time="06:30" data-position="">06:30</li>
+                        <li class="marktime" style="width:75px;" data-time="06:45" data-position="">06:45</li>
+                        <li class="marktime" style="width:75px;" data-time="07:00" data-position="">07:00</li>
+                        <li class="marktime" style="width:75px;" data-time="07:15" data-position="">07:15</li>
+                        <li class="marktime" style="width:75px;" data-time="07:30" data-position="">07:30</li>
+                        <li class="marktime" style="width:75px;" data-time="07:45" data-position="">07:45</li>
+                        <li class="marktime" style="width:75px;" data-time="08:00" data-position="">08:00</li>
+                        <li class="marktime" style="width:75px;" data-time="08:15" data-position="">08:15</li>
+                        <li class="marktime" style="width:75px;" data-time="08:30" data-position="">08:30</li>
+                        <li class="marktime" style="width:75px;" data-time="08:45" data-position="">08:45</li>
+                        <li class="marktime" style="width:75px;" data-time="09:00" data-position="">09:00</li>
+                        <li class="marktime" style="width:75px;" data-time="09:15" data-position="">09:15</li>
+                        <li class="marktime" style="width:75px;" data-time="09:30" data-position="">09:30</li>
+                        <li class="marktime" style="width:75px;" data-time="09:45" data-position="">09:45</li>
+                        <li class="marktime" style="width:75px;" data-time="10:00" data-position="">10:00</li>
+                        <li class="marktime" style="width:75px;" data-time="10:15" data-position="">10:15</li>
+                        <li class="marktime" style="width:75px;" data-time="10:30" data-position="">10:30</li>
+                        <li class="marktime" style="width:75px;" data-time="10:45" data-position="">10:45</li>
+                        <li class="marktime" style="width:75px;" data-time="11:00" data-position="">11:00</li>
+                        <li class="marktime" style="width:75px;" data-time="11:15" data-position="">11:15</li>
+                        <li class="marktime" style="width:75px;" data-time="11:30" data-position="">11:30</li>
+                        <li class="marktime" style="width:75px;" data-time="11:45" data-position="">11:45</li>
+                        <li class="marktime" style="width:75px;" data-time="12:00" data-position="">12:00</li>
+                        <li class="marktime" style="width:75px;" data-time="12:15" data-position="">12:15</li>
+                        <li class="marktime" style="width:75px;" data-time="12:30" data-position="">12:30</li>
+                        <li class="marktime" style="width:75px;" data-time="12:45" data-position="">12:45</li>
+                        <li class="marktime" style="width:75px;" data-time="13:00" data-position="">13:00</li>
+                        <li class="marktime" style="width:75px;" data-time="13:15" data-position="">13:15</li>
+                        <li class="marktime" style="width:75px;" data-time="13:30" data-position="">13:30</li>
+                        <li class="marktime" style="width:75px;" data-time="13:45" data-position="">13:45</li>
+                        <li class="marktime" style="width:75px;" data-time="14:00" data-position="">14:00</li>
+                        <li class="marktime" style="width:75px;" data-time="14:15" data-position="">14:15</li>
+                        <li class="marktime" style="width:75px;" data-time="14:30" data-position="">14:30</li>
+                        <li class="marktime" style="width:75px;" data-time="14:45" data-position="">14:45</li>
+                        <li class="marktime" style="width:75px;" data-time="15:00" data-position="">15:00</li>
+                        <li class="marktime" style="width:75px;" data-time="15:15" data-position="">15:15</li>
+                        <li class="marktime" style="width:75px;" data-time="15:30" data-position="">15:30</li>
+                        <li class="marktime" style="width:75px;" data-time="15:45" data-position="">15:45</li>
+                        <li class="marktime" style="width:75px;" data-time="16:00" data-position="">16:00</li>
+                        <li class="marktime" style="width:75px;" data-time="16:15" data-position="">16:15</li>
+                        <li class="marktime" style="width:75px;" data-time="16:30" data-position="">16:30</li>
+                        <li class="marktime" style="width:75px;" data-time="16:45" data-position="">16:45</li>
+                        <li class="marktime" style="width:75px;" data-time="17:00" data-position="">17:00</li>
+                        <li class="marktime" style="width:75px;" data-time="17:15" data-position="">17:15</li>
+                        <li class="marktime" style="width:75px;" data-time="17:30" data-position="">17:30</li>
+                        <li class="marktime" style="width:75px;" data-time="17:45" data-position="">17:45</li>
+                        <li class="marktime" style="width:75px;" data-time="18:00" data-position="">18:00</li>
+                        <li class="marktime" style="width:75px;" data-time="18:15" data-position="">18:15</li>
+                        <li class="marktime" style="width:75px;" data-time="18:30" data-position="">18:30</li>
+                        <li class="marktime" style="width:75px;" data-time="18:45" data-position="">18:45</li>
+                        <li class="marktime" style="width:75px;" data-time="19:00" data-position="">19:00</li>
+                        <li class="marktime" style="width:75px;" data-time="19:15" data-position="">19:15</li>
+                        <li class="marktime" style="width:75px;" data-time="19:30" data-position="">19:30</li>
+                        <li class="marktime" style="width:75px;" data-time="19:45" data-position="">19:45</li>
+                        <li class="marktime" style="width:75px;" data-time="20:00" data-position="">20:00</li>
+                        <li class="marktime" style="width:75px;" data-time="20:15" data-position="">20:15</li>
+                        <li class="marktime" style="width:75px;" data-time="20:30" data-position="">20:30</li>
+                        <li class="marktime" style="width:75px;" data-time="20:45" data-position="">20:45</li>
+                        <li class="marktime" style="width:75px;" data-time="21:00" data-position="">21:00</li>
+                        <li class="marktime" style="width:75px;" data-time="21:15" data-position="">21:15</li>
+                        <li class="marktime" style="width:75px;" data-time="21:30" data-position="">21:30</li>
+                        <li class="marktime" style="width:75px;" data-time="21:45" data-position="">21:45</li>
+                        <li class="marktime" style="width:75px;" data-time="22:00" data-position="">22:00</li>
+                        <li class="marktime" style="width:75px;" data-time="22:15" data-position="">22:15</li>
+                        <li class="marktime" style="width:75px;" data-time="22:30" data-position="">22:30</li>
+                        <li class="marktime" style="width:75px;" data-time="22:45" data-position="">22:45</li>
+                        <li class="marktime" style="width:75px;" data-time="23:00" data-position="">23:00</li>
+                        <li class="marktime" style="width:75px;" data-time="23:15" data-position="">23:15</li>
+                        <li class="marktime" style="width:75px;" data-time="23:30" data-position="">23:30</li>
+                        <li class="marktime" style="width:75px;" data-time="23:45" data-position="">23:45</li>
+                        <!-- <li class="marktime" style="width:75px;" data-time="06:00" data-position="">06:00</li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="listado-catalogo-epg2" class="listado-catalogo">
+            <ul class="ul-epg"></ul>
+        </div>
+
+        <div id="listado-catalogo-epg" class="listado-catalogo">
+            <div id="down-marcador" class="marcador"></div>
+            <ul id="parrilla"></ul>
+        </div>
+
+    </div>
+
+    <div class="fondo-blanco" id="spinner-total">
+        <div class="alerta-browser alerta-descarga">
+            <img alt="loading..." src="http://ver.movistarplus.es/img/ic_spinner_video.png">
+            <span id="spinner-total-extra"></span>
+        </div>
+    </div>
+
+    <script>
+        var date = new Date();
+        var hh = date.getHours()
+        var mm = date.getMinutes(), tout = null;
+        var parrilla = document.getElementById('parrilla'), row = document.getElementsByClassName('row'), logos = document.getElementsByClassName('ul-epg');
+
+        var CodChnnl = ["TVE", "LA2", "A3", "C4", "T5", "SEXTA", "MV3", "VAMOSD", "CPSER", "MV2", "FOXGE", "AXN", "TNT", "PCM", "CL13",
+            "COSMO", "AMC", "FOXCR", "SET", "SCI-FI", "MTV", "FDFIC", "NEOX", "ATRESS", "ENERGY", "MV1", "CPXTRA", "DISNEY", "CPACCI", "CPCOME",
+            "CPCOLE", "DCESP", "TCM", "HOLLYW", "DARK", "PARCH", "MLIGA", "CHAPIO", "CPDEP", "ARTHUR", "MVF1", "UBEAT", "GOLF+", "ESP", "ESP2",
+            "GOL", "TDEP", "CAZPES", "CFERIA", "NATGEO", "NATGW", "HIST", "DCR", "ODISEA", "VJR", "CYM", "CACOC", "DECASA", "DIVINI", "NOVA",
+            "MEGA", "BEMAD", "BABY", "PLAYDC", "PANDA", "NICKJR", "NICK", "DCHXD", "DCH", "BOING", "CLANTV", "VH1", "MEZZO", "MEZZLI", "CLASSD",
+            "24H", "INTECO", "ANTV", "TVG", "EXTREM", "TVC", "ETB", "ARAGON"];
+
+        // console.log(hh + ':' + mm)
+        // console.log(date.toISOString().replace(/\.[0-9]{3}/, ''))
+
+        function setEPGPosition() {
+
+            var valorXminuto = 5;
+            var valorXhora = valorXminuto * 60;
+
+            var date = new Date();
+            var sHora = date.getHours()
+            var sMinutos = date.getMinutes()
+            console.log(sHora + ':' + sMinutos)
+            var posicion;
+
+            var suma = 1080 * valorXminuto;
+
+            if (sHora < 6) {
+                posicion = sHora * valorXhora + sMinutos * valorXminuto + suma;
+            } else {
+                posicion = (sHora - 6) * valorXhora + sMinutos * valorXminuto;
+            }
+
+            var posicionEPG = posicion - 15 * valorXminuto;
+            console.log(posicionEPG)
+            if (posicionEPG < 0) {
+                posicionEPG = 0;
+            }
+
+            $("#listado-catalogo-epg").animate({ scrollLeft: posicionEPG + (71 * 25) }, 400);
+            $('.marcador').animate({ left: posicionEPG + (71 * 25) }, 400);
+
+        };
+
+        function getEPG() {
+
+            $.ajax({
+                type: "GET",
+                url: "http://ottcache.dof6.com/movistarplus/webplayer/OTT/contents/channels",
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                success: function (resp) {
+                    for (let i = 0; i < 70; i++) {
+                        $('<li class="row_channel" href="videoPlayer.html?url=' + resp[i].PuntoReproduccion + '&title=' + resp[i].Nombre
+                            + '&id=' + i + '"><div class="datos-canal_epg"><span class="canal" title="' + resp[i].CodCadenaTv
+                            + '"><img class="img" src="' + resp[i].Logo + '"></span></div></li>').appendTo(logos)
+                    }
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "https://ottcache.dof6.com/movistarplus/webplayer/OTT/epg?from=" + date.toISOString().split('T')[0] + "T00:00:00" + "&span=1&channel=&network=movistarplus&version=3",
+                contentType: "application/json; charset=utf-8",
+                // data: JSON.stringify(request),
+                crossDomain: true,
+                success: function (data) {
+                    console.log(data)
+                    // for (let i = 0; i < data.length; i++) {
+                    for (let i = 0; i < 10; i++) {
+                        $('<li class="row" title="' + CodChnnl[i] + '"></li>').appendTo(parrilla)
+                        for (let j = 0; j < data[i].length; j++) {
+                            if (!data[i][j].TituloEpisodio) {
+                                $('<div class="datos-canal_epg" style="width: ' + ((data[i][j].DuracionParrillaEnSegundos * 74) / 900) + 'px;"><p><span class="hora">'
+                                + new Date(parseInt(data[i][j].FechaHoraInicio)).HHMM() + '</span><span class="Genero">' + data[i][j].GeneroComAntena
+                                + '</span></p><p><span class="titulo" title="' + data[i][j].Titulo + '">' + data[i][j].Titulo + '</span></p></div>').appendTo(row)
+                            } else  {
+                                $('<div class="datos-canal_epg" style="width: ' + ((data[i][j].DuracionParrillaEnSegundos * 74) / 900) + 'px;"><p><span class="hora">'
+                                    + new Date(parseInt(data[i][j].FechaHoraInicio)).HHMM() + '</span><span class="Genero">' + data[i][j].GeneroComAntena
+                                    + '</span></p><p><span class="titulo" title="' + data[i][j].Titulo + '">' + data[i][j].Titulo + '</span><span  title="'
+                                    + data[i][j].TituloEpisodio + '">' + data[i][j].TituloEpisodio + '</span></p></div>').appendTo(row)
+                            }
+                        }
+                    }
+                    document.getElementById("spinner-total").style.display = "none";
+                }
+            });
+
+            ordenar()
+
+        }
+
+        function ordenar() {
+
+            $(".slider").slick({
+                infinite: true,
+                centerMode: false,
+                slidesToShow: 12,
+                slidesToScroll: 4
+            });
+            if (mm > 45) {
+                $('.slider').slick("goTo", (hh * 4) + 3);
+                // $(".row").animate({ left: "-=" + (((hh * 4) + 3) * 94) + "px" }, 500);
+            } else if (30 < mm < 45) {
+                $('.slider').slick("goTo", (hh * 4) + 2);
+                // $(".row").animate({ left: "-=" + (((hh * 4) + 2) * 94) + "px" }, 500);
+            } else if (15 < mm < 30) {
+                $('.slider').slick("goTo", (hh * 4) + 1);
+                // $(".row").animate({ left: "-=" + (((hh * 4) + 1) * 94) + "px" }, 500);
+            } else if (mm < 15) {
+                $('.slider').slick("goTo", hh * 4);
+                // $(".row").animate({ left: "-=" + ((hh * 4) * 94) + "px" }, 500);
+            }
+
+            // Reloj color verde
+            $('.ui-slider-handle').css('left', ((100 / 24) * hh) + '%')
+            $('.ui-slider-handle').html(hh + ':' + ((mm < 10) ? '0' + mm : mm))
+
+            // Evento click izquierda
+            $('.slick-prev').click(() => {
+                $(".row").animate({ left: "+=284px" }, 400);
+                $('.marcador').animate({ left: "+=284px" }, 400);
+            })
+            // Evento click derecha
+            $('.slick-next').click(() => {
+                $(".row").animate({ left: "-=300px" }, 400);
+                $('.marcador').animate({ left: "-=300px" }, 400);
+            })
+
+            setEPGPosition()
+
+        }
+
+        Date.prototype.HHMM = function () {
+
+            var h = this.getHours().toString(),
+                m = this.getMinutes().toString(),
+                s = this.getSeconds().toString(),
+                HH = h[1] ? h : "0" + h[0],
+                MM = m[1] ? m : "0" + m[0];
+
+            return HH + ":" + MM;
+        };
+
+        Date.prototype.DDMMyyyy = function () {
+
+            var d = this.getDate().toString(),
+                m = this.getMonth().toString(),
+                y = this.getFullYear().toString(),
+                dd = d[1] ? d : "0" + d[0],
+                mm = m[1] + 1 ? m : "0" + m[0],
+                yyyy = y[2] ? y : "0" + (y[1] ? y : "0" + y[0]);
+
+            return dd + "/" + mm + "/" + yyyy;
+        };
+
+        $(document).ready(function () {
+
+            $('#fecha').html(date.DDMMyyyy())
+
+            document.getElementById("spinner-total").style.display = "block";
+
+            getEPG()
+
+        })
+
+    </script>
+</body>
+
+</html>

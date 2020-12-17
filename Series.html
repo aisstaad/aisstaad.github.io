@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Series - Movistar+</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<style>
+		.navbar {
+			z-index: 1;
+			position: fixed;
+			display: block;
+			top: 0;
+			width: 100%;
+			/* vertical-align: middle; */
+			overflow: hidden;
+			background-color: #333;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.navbar a {
+			float: left;
+			font-size: 16px;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		.navbar a:hover,
+		.dropdown:hover .dropbtn {
+			background-color: black;
+			/* background-color: #333; */
+		}
+
+		nav a:hover {
+			color: blue;
+			background-color: #cfd8dc
+		}
+
+		nav a:active {
+			color: red;
+		}
+
+		body {
+			background-color: black;
+		}
+
+		.container {
+			width: 90%;
+			margin-top: 80px;
+			margin-bottom: 0;
+			text-align: center;
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto
+		}
+
+		.row {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -15px;
+			margin-left: -15px
+		}
+
+		a {
+			width: 150px;
+			height: 50px;
+		}
+
+		#logo {
+			width: 100%;
+		}
+
+		.col-sm {
+			position: relative;
+			padding: 15px;
+			width: 100%;
+			min-height: 1px;
+			/* padding-right: 15px; */
+			/* padding-left: 15px */
+		}
+
+		@media (min-width: 576px) {
+			.col-sm {
+				-ms-flex-preferred-size: 0;
+				flex-basis: 0;
+				-ms-flex-positive: 1;
+				flex-grow: 1;
+				max-width: 100%
+			}
+		}
+
+		.col {
+			-ms-flex-preferred-size: 0;
+			flex-basis: 0;
+			-ms-flex-positive: 1;
+			flex-grow: 1;
+			max-width: 100%
+		}
+
+		#title {
+			color: white;
+			border-color: black;
+		}
+
+		.right-header {
+			margin-top: 5px;
+			margin-right: 10px;
+			float: right;
+			margin-top: 5px;
+			margin-bottom: 0px;
+		}
+
+		#search {
+			height: 80%;
+			vertical-align: center;
+		}
+
+		.form-wrapper #search {
+			width: 80%;
+			font-family: 'Arial', 'trebuchet MS', 'Tahoma';
+			border: 0;
+			background: transparent;
+			color: #fff;
+			font-size: 18px;
+		}
+
+		.portada_buscar span img {
+			margin: 10px;
+			float: right;
+		}
+
+		.portada_buscar {
+			height: 40px;
+			width: 100%;
+			background: #222;
+			padding-left: 10px;
+			border: 1px solid #666;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+		}
+
+		.tooltip {
+			/* position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black; */
+			/* position: absolute; */
+			z-index: 1070;
+			display: block;
+			margin: 0;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+			font-style: normal;
+			font-weight: 400;
+			line-height: 1.5;
+			text-align: left;
+			text-align: start;
+			text-decoration: none;
+			text-shadow: none;
+			text-transform: none;
+			letter-spacing: normal;
+			word-break: normal;
+			word-spacing: normal;
+			white-space: normal;
+			line-break: auto;
+			font-size: .875rem;
+			word-wrap: break-word;
+			/* opacity: 0 */
+		}
+
+		.tiptext {
+			visibility: hidden;
+			width: 75%;
+			background-color: rgb(80, 77, 77);
+			color: white;
+			text-align: center;
+			border-radius: 3px;
+			padding: 6px 6px 3px 6px;
+			position: absolute;
+			z-index: 1;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.tooltip .tiptext::after {
+			/* content: ""; */
+			position: relative;
+			border-width: 5px;
+			border-style: solid;
+		}
+
+		.tooltip:hover .tiptext {
+			visibility: visible;
+		}
+
+		#poster {
+			border-radius: 5px;
+		}
+		
+	</style>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<a href="index.html">
+			<img id="logo" alt="Microsoft" src="http://ver.movistarplus.es/img/logo-yomvi-cabecera.png">
+		</a>
+		<!-- 
+		<div class="right-header">
+			<div class="form-wrapper" id="search-busqueda-form" method="get" action="/busqueda/">
+				<div class="portada_buscar">
+					<span><img alt="" src="http://ver.movistarplus.es/img/LUPA.png" onclick="getTitles()"></span>
+					<input type="text" placeholder="Buscar..." id="search" name="texto">
+					<!- - onchange="getTitles()" oninput="this.onchange()" -- >
+				</div>
+			</div>
+		</div>
+		-->
+	</div>
+</head>
+
+<body onload="init()">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm"><img src=""></div>
+		</div>
+	</div>
+	<script>
+		var items, d, section = document.getElementsByClassName('row'), j = 1, k = 99;
+
+		$(document).ready(function () {
+			$(document).scroll(function () {
+				if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1) {
+					console.log('Has llegado al final de la pagina!')
+					j += 100;
+					k += 100;
+					console.log('j=' + j + ', k=' + k)
+					getContent(j, k)
+				}
+			})
+		});
+
+		function getContent(j, k) {
+			$.get('https://ottcache.dof6.com/movistarplus/webplayer/contents/browse?profile=OTT&sort=MA&version=3&start='
+				+ j + '&end=' + k + '&mode=VOD&showseries=series&topic=SR', function (data) {
+
+				for (let i = 0; i < data.count; i++) {
+					$('<div class="col-sm"><a href="temporada.html?id=' + data.Contenidos[i].DatosEditoriales.Id + '"><div class="tooltip bootom"><div><img id="poster" src="'
+						+ data.Contenidos[i].DatosEditoriales.Imagenes[0].uri + '" onmouseover="" style="cursor: pointer;"><div id="title">' + data.Contenidos[i].DatosEditoriales.Titulo
+						+ '</div></div><span class="tiptext">' + data.Contenidos[i].DatosEditoriales.NumHijos + ' Temporadas</span></div></a></div>').appendTo(section);
+				}
+
+			})
+		}
+
+		function init() {
+			$('.col-sm').remove();
+			getContent(j, k)
+		}
+
+
+	</script>
+</body>
+
+</html>
