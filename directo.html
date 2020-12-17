@@ -375,7 +375,7 @@
 
         function getChannels() {
             $('.col-sm').remove();
-            $.get('http://ottcache.dof6.com/movistarplus/webplayer/OTT/contents/epg', function (data) {
+            $.get('https://ottcache.dof6.com/movistarplus/webplayer/OTT/contents/epg', function (data) {
                 var date = new Date().getTime();
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].Pases[0].TipoContenido == 'Episodio') {
@@ -401,7 +401,7 @@
         }
 
         /* function updateSeek() {
-            $.get('http://ottcache.dof6.com/movistarplus/webplayer/OTT/contents/epg', function (data) {
+            $.get('https://ottcache.dof6.com/movistarplus/webplayer/OTT/contents/epg', function (data) {
                 var date = new Date().getTime();
                 for (let i = 0; i < data.length; i++) {
                     $('#title').attr('value', data[i].Pases[0].Titulo)
