@@ -953,7 +953,7 @@
 
         function launchPlayer(manifest) { 
             startTime = new Date();
-            laurl = 'http://test.playready.microsoft.com/service/rightsmanager.asmx'.trim();
+            laurl = 'https://test.playready.microsoft.com/service/rightsmanager.asmx'.trim();
             // laurl = 'https://playready3.entitlement.eu.theplatform.com/playready/rightsmanager.asmx?schema=1.0&account=http%3A%2F%2Faccess.auth.theplatform.com%2Fdata%2FAccount%2F2705583831&releasePid=H_w6CG39ff1E&auth=eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJwZ2xzLXBycy10cnVzdGVkLzYxZmI1NDg1LTA4ZTAtNDYxMC05ZWMzLWE1MTNhNzM4M2FkYiIsImlzcyI6IjEiLCJleHAiOjE1OTUxNzg5MzIsImlhdCI6MTU5NTE3MTczMjAwNSwianRpIjoiYzdiY2Y4MTMtZGNmMy00MzY0LTg3NDYtNjNkZWI4MmU0YWUyIiwiZGlkIjoicGdscy1wcnMtdHJ1c3RlZCIsInVubSI6IjYxZmI1NDg1LTA4ZTAtNDYxMC05ZWMzLWE1MTNhNzM4M2FkYiIsImN0eCI6IntcInVzZXJOYW1lXCI6XCI2MWZiNTQ4NS0wOGUwLTQ2MTAtOWVjMy1hNTEzYTczODNhZGJcIixcImF0dHJpYnV0ZXNcIjp7XCJzdWJzY3JpcHRpb25MZXZlbFwiOlwic3RhbmRhcmRcIn19XG4iLCJvaWQiOm51bGx9.LmaSnsQwidTL12SOig6BEaJZayAs2Qjg9QnnckRo7EaKbSDXmqu7gQ8a9np8NSj2OBIk9VPn21korTT1-Fb5-Mgq5mUdlEhXOveqI8rBrKnn9sPdt3RIKmmGntmDv1n17LFYrhu1ieXvPIVRN_Rc4errD_xmLLasRXxXL4Yfn1GRPD_0H0lnLrOh_6meGPLkCvUosS1PRQwAAPseTvAkq-MdTeVQmqEIrAq8OnkfC1sgNkRNIc9QsFMi-vmeklam58B24qE0iITbY1NZLJre_9dXM-Vla3mm5HHXSdei3dtXxRlwIhbNwmcFgIG4KuJHFL-CvI18fm-i5nspnAOh5Q'.trim()
             // https://b38543.1.cdn.telefonica.com/38543/prod/mss/cplus-1593197-md_cplus-1593197-pry_20200113_165124/index.ism/Manifest?tcdn-bitrate-filter=mplusvod
             // protectionData = new MediaPlayer.vo.protection.ProtectionData(laurl, null, null);
@@ -1036,7 +1036,7 @@
 
             initPlayer();
 
-            launchPlayer(window.location.href.split('?url=')[1].split('&title=')[0]);
+            launchPlayer(window.location.href.split('?url=')[1].split('&title=')[0].replace('http', 'https'));
 
             $(document).attr("title", decodeURIComponent(window.location.href.split('&title=')[1].split('&id=')[0]));
 
@@ -1046,7 +1046,7 @@
         }
 
         function updateSeek() {
-            $.get('http://ottcache.dof6.com/movistarplus/webplayer/OTT/contents/epg', function (data) {
+            $.get('https://ottcache.dof6.com/movistarplus/webplayer/OTT/contents/epg', function (data) {
                 items = data;
                 var date = new Date().getTime();
                 var id = parseInt(window.location.href.split('&id=')[1]);
